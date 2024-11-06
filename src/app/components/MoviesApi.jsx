@@ -8,15 +8,20 @@ function MoviesApi() {
   const [movieData, setMovieData] = useState([]);
   const [randomMovie, setRandomMovie] = useState(null);
   const [movieLogos, setMovieLogos] = useState({});
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 960);
+  const [isMobile, setIsMobile] = useState(false); // Default value changed
   const apiKey = "84ef9a6a385dcf0d998c9d83dd821e47";
   const [showTitle, setShowTitle] = useState(false);
+
+  // Initialize isMobile on client side only
+  useEffect(() => {
+    setIsMobile(window.innerWidth <= 960);
+  }, []);
+
   useEffect(() => {
     getTrendingMovieData();
     setTimeout(() => {
       setShowTitle(true);
     }, 1500);
-    
   }, []);
 
   // Function to fetch trending movie data and select a random movie
@@ -68,14 +73,17 @@ function MoviesApi() {
     };
 
     fetchLogo();
-  }, [randomMovie]);
-
+  }, [randomMovie, apiKey]);
 
   // Handle window resizing to detect mobile view
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 960);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    
+    // Only add the event listener client-side
+    if (typeof window !== 'undefined') {
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }
   }, []);
 
   // Function to truncate text by words
@@ -90,7 +98,6 @@ function MoviesApi() {
 
   if (!randomMovie) return null;
 
- 
   return (
     <div className="background_container lg:pt-5 md:pt-5">
       <div className="flex-container flex-wrap">
@@ -108,22 +115,23 @@ function MoviesApi() {
 
           <div className="relative z-20 h-full flex flex-col justify-end pb-8 md:pb-16 px-4 md:px-8 max-w-7xl mx-auto">
             {movieLogos[randomMovie.id] ? (
-  <div className="logo-container">
-  <img
-    src={movieLogos[randomMovie.id]}
-    alt={`${randomMovie.title || randomMovie.name} logo`}
-    className="max-w-sm md:max-w-md mb-2 md:mb-4 h-10 md:h-24 object-contain"
-    onError={(e) => {
-      e.target.style.display = "none";
-    }}
-  />
-</div>
-) : (
-showTitle && (
-  <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold text-white mb-2 tracking-wide">
-    {randomMovie.title || randomMovie.name}
-  </h1>)
-)}
+              <div className="logo-container">
+                <img
+                  src={movieLogos[randomMovie.id]}
+                  alt={`${randomMovie.title || randomMovie.name} logo`}
+                  className="max-w-sm md:max-w-md mb-2 md:mb-4 h-10 md:h-24 object-contain"
+                  onError={(e) => {
+                    e.target.style.display = "none";
+                  }}
+                />
+              </div>
+            ) : (
+              showTitle && (
+                <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold text-white mb-2 tracking-wide">
+                  {randomMovie.title || randomMovie.name}
+                </h1>
+              )
+            )}
 
             <div className="flex items-center gap-2 md:gap-4 mb-2 md:mb-4">
               <span className="px-2 py-1 bg-gray-100/20 text-white text-xs md:text-sm rounded">
