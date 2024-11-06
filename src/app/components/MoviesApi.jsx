@@ -107,6 +107,7 @@ function MoviesApi() {
         >
           <div className="absolute object-cover inset-0 bg-gray-900 rounded-xl">
             <img
+            width="500"
               className="w-full h-full object-cover rounded-xl bg-black opacity-40"
               src={`https://image.tmdb.org/t/p/w1280/${randomMovie.backdrop_path}`}
               alt={randomMovie.title || randomMovie.name}
