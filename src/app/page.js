@@ -3,6 +3,7 @@
 import Header from "./components/Header";
 
 import MoviesApi from "./components/MoviesApi";
+// import MustWatch from "./components/MustWatch";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       </div>
 
       <MoviesApi />
+      {/* <MustWatch /> */}
     </div>
   );
 }

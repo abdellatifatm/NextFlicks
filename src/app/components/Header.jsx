@@ -46,7 +46,7 @@ export default function Header() {
             </a>
           </Typography>
         </MenuHandler>
-        <MenuList className="p-2 bg-white rounded-lg shadow-lg">
+        <MenuList className="p-2 text-blue-gray-900 bg-white/30 backdrop-blur-xl border-none rounded-lg shadow-lg">
           <MenuItem>
             <a href="#">Now Playing</a>
           </MenuItem>
@@ -97,7 +97,7 @@ export default function Header() {
   );
 
   return (
-    <Navbar className="mx-auto max-w-screen-xl px-4 py-2 lg:px-8 lg:py-4">
+    <Navbar className="mx-auto max-w-screen-xl px-4 py-2 lg:px-8 lg:py-4 bg-opacity-55 border-none ">
       <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
         <Typography as="a" href="#" className="mr-4 cursor-pointer py-1.5 font-bold">
           NextFlicks

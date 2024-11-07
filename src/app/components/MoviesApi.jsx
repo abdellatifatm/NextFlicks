@@ -3,6 +3,7 @@ import axios from "axios";
 import React from "react";
 import { Play, Info } from "lucide-react";
 import { Button } from "@material-tailwind/react";
+import MustWatch from "./MustWatch";
 
 function MoviesApi() {
   const [movieData, setMovieData] = useState([]);
@@ -29,7 +30,7 @@ function MoviesApi() {
     try {
       const allResults = [];
       let currentPage = 1;
-      const totalPages = 2;
+      const totalPages = 1;
 
       while (currentPage <= totalPages) {
         const resp = await axios.get(
@@ -175,6 +176,7 @@ function MoviesApi() {
           </div>
         </div>
       </div>
+      <MustWatch movies={movieData} />
     </div>
   );
 }

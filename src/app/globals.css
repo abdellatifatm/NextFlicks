@@ -4,16 +4,30 @@
 
 html{
   scroll-behavior: smooth;
+  
 }
 
+/* Add this to your global CSS or inside your component's CSS module */
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+
 :root {
-  --background: #ffffff;
+  --background: white;
   --foreground: #171717;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #0d193f;
     --foreground: #ededed;
   }
 }
