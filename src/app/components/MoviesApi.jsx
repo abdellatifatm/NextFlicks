@@ -30,7 +30,7 @@ function MoviesApi() {
     try {
       const allResults = [];
       let currentPage = 1;
-      const totalPages = 2;
+      const totalPages = 1;
 
       while (currentPage <= totalPages) {
         const resp = await axios.get(
@@ -117,11 +117,11 @@ function MoviesApi() {
 
           <div className="relative z-20 h-full flex flex-col justify-end pb-8 md:pb-16 px-4 md:px-8 max-w-7xl mx-auto">
             {movieLogos[randomMovie.id] ? (
-              <div className="logo-container">
+              <div className="logo-container object-contain">
                 <img
                   src={movieLogos[randomMovie.id]}
                   alt={`${randomMovie.title || randomMovie.name} logo`}
-                  className="h-12 w-auto max-w-[150px] md:max-h-24 object-contain mb-2 md:mb-4"
+                  className="h-12 lg:max-w-md  lg:h-24 w-auto max-w-[150px] md:max-h-24 object-contain mb-2 md:mb-4"
                   onError={(e) => {
                     e.target.style.display = "none";
                   }}
