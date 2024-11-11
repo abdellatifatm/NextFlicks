@@ -30,7 +30,7 @@ function MoviesApi() {
     try {
       const allResults = [];
       let currentPage = 1;
-      const totalPages = 1;
+      const totalPages = 2;
 
       while (currentPage <= totalPages) {
         const resp = await axios.get(
