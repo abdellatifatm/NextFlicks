@@ -30,7 +30,7 @@ function MoviesApi() {
     try {
       const allResults = [];
       let currentPage = 1;
-      const totalPages = 1;
+      const totalPages = 2;
 
       while (currentPage <= totalPages) {
         const resp = await axios.get(
@@ -79,9 +79,9 @@ function MoviesApi() {
   // Handle window resizing to detect mobile view
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 960);
-    
+
     // Only add the event listener client-side
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       window.addEventListener("resize", handleResize);
       return () => window.removeEventListener("resize", handleResize);
     }
@@ -108,7 +108,7 @@ function MoviesApi() {
         >
           <div className="absolute object-cover inset-0 bg-gray-900 rounded-xl">
             <img
-            width="500"
+              width="500"
               className="w-full h-full object-cover rounded-xl bg-black opacity-40"
               src={`https://image.tmdb.org/t/p/w1280/${randomMovie.backdrop_path}`}
               alt={randomMovie.title || randomMovie.name}
@@ -121,7 +121,7 @@ function MoviesApi() {
                 <img
                   src={movieLogos[randomMovie.id]}
                   alt={`${randomMovie.title || randomMovie.name} logo`}
-                  className="max-w-sm md:max-w-md mb-2 md:mb-4 h-10 md:h-24 object-contain"
+                  className="h-12 w-auto max-w-[150px] md:max-h-24 object-contain mb-2 md:mb-4"
                   onError={(e) => {
                     e.target.style.display = "none";
                   }}
