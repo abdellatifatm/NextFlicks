@@ -23,7 +23,7 @@ function MoviesApi() {
     setTimeout(() => {
       setShowTitle(true);
     }, 1500);
-  }, [getTrendingMovieData]);
+  }, []);
 
   async function getTrendingMovieData() {
     try {
