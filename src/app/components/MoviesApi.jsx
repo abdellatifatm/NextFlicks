@@ -23,7 +23,7 @@ function MoviesApi() {
     setTimeout(() => {
       setShowTitle(true);
     }, 1500);
-  }, []);
+  }, [getTrendingMovieData]);
 
   async function getTrendingMovieData() {
     try {
@@ -237,7 +237,7 @@ function MoviesApi() {
             </p>
 
             <div className="text-gray-300 text-xs md:text-sm mb-4 md:mb-8">
-              Action • Adventure • Sci-fi"
+              Action • Adventure • Sci-fi
             </div>
 
             <div className="flex gap-2 md:gap-4">
