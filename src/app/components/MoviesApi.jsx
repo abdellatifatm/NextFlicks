@@ -244,7 +244,7 @@ const MoviesApi = () => {
                 <Play size={20} />
                 <span>Play</span>
               </Button>
-              <Link href="/HHH">
+              <Link href="/info">
                 <Button
                   variant="text"
                   size="sm"
