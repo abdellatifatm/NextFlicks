@@ -133,7 +133,11 @@ const MoviesApi = () => {
   };
 
   const getGenreNames = (genreIds) => {
-    return genreIds.map((id) => allGenres[id]).filter(Boolean).join(" • ");
+    return genreIds
+      .slice(0, 3) // Take only first 3 genre IDs
+      .map((id) => allGenres[id])
+      .filter(Boolean)
+      .join(" • ");
   };
 
   const truncateTextByWords = (text, lines, wordsPerLine) => {
