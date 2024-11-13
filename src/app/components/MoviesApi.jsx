@@ -114,7 +114,7 @@ const MoviesApi = () => {
   const getTrendingMovieData = async () => {
     try {
       const resp = await axios.get(
-        `https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}&page=2`
+        `https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}&page=1`
       );
 
       const resultsWithDetails = await Promise.all(
