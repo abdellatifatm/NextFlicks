@@ -41,7 +41,7 @@ export default function Header() {
               <path d="M17 7.5h4" />
               <path d="M17 16.5h4" />
             </svg>
-            <a href="#" className="flex items-center">
+            <a  className="flex items-center">
               Movies
             </a>
           </Typography>
@@ -50,9 +50,10 @@ export default function Header() {
           <MenuItem>
             <a href="#">Now Playing</a>
           </MenuItem>
+          <a href="#mustwatch">
           <MenuItem>
-            <a href="#">Popular</a>
-          </MenuItem>
+            Popular
+          </MenuItem></a>
           <MenuItem>
             <a href="#">Top Rated</a>
           </MenuItem>

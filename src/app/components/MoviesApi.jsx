@@ -114,7 +114,7 @@ const MoviesApi = () => {
   const getTrendingMovieData = async () => {
     try {
       const resp = await axios.get(
-        `https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}&page=1`
+        `https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}&page=2`
       );
 
       const resultsWithDetails = await Promise.all(
@@ -171,7 +171,7 @@ const MoviesApi = () => {
   return (
     <div className="background_container lg:pt-5 md:pt-5">
       <div className="flex-container flex-wrap">
-        <div className="relative h-[300px] md:h-[450px] lg:h-[600px] m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 overflow-hidden">
+        <div className="relative h-[300px] md:h-[450px] lg:h-[819px] m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 overflow-hidden">
           <div className="absolute object-cover inset-0 bg-gray-900 rounded-xl">
             <img
               width="500"
@@ -181,7 +181,7 @@ const MoviesApi = () => {
             />
           </div>
 
-          <div className="relative z-20 h-full flex flex-col justify-end pb-8 md:pb-16 px-4 md:px-8 max-w-7xl mx-auto">
+          <div className="relative z-20 h-full flex flex-col justify-end lg:py-64 pb-8 md:pb-16 px-4 md:px-8 max-w-7xl mx-auto">
             {movieLogos[randomMovie.id] ? (
               <div className="logo-container object-contain">
                 <img

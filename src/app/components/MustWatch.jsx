@@ -27,7 +27,7 @@ export default function MustWatch({ movies }) {
 </div>
 
       {movies && movies.length > 0 ? (
-        <div className="relative">
+        <div className="relative" id='mustwatch'>
 
           <div
             className="movie-slider-container flex gap-4 h-[350px] overflow-x-auto scrollbar-hide"
