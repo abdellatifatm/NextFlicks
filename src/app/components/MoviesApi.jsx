@@ -5,6 +5,7 @@ import { Button } from "@material-tailwind/react";
 import Link from "next/link";
 import MustWatch from "./MustWatch";
 
+
 const API_KEY = "84ef9a6a385dcf0d998c9d83dd821e47";
 const MOBILE_BREAKPOINT = 960;
 const TITLE_DELAY = 1500;
@@ -20,11 +21,9 @@ const MoviesApi = () => {
   const fetchMovieDetails = async (item) => {
     const mediaType = item.media_type;
     const isMovie = mediaType === "movie";
-    const endpoint = `https://api.themoviedb.org/3/${isMovie ? "movie" : "tv"}/${
-      item.id
-    }?api_key=${API_KEY}&append_to_response=${
-      isMovie ? "release_dates" : "content_ratings"
-    }`;
+    const endpoint = `https://api.themoviedb.org/3/${isMovie ? "movie" : "tv"}/${item.id
+      }?api_key=${API_KEY}&append_to_response=${isMovie ? "release_dates" : "content_ratings"
+      }`;
 
     try {
       const response = await axios.get(endpoint);
@@ -90,9 +89,8 @@ const MoviesApi = () => {
     if (!randomMovie) return;
 
     const mediaType = randomMovie.media_type;
-    const endpoint = `https://api.themoviedb.org/3/${
-      mediaType === "movie" ? "movie" : "tv"
-    }/${randomMovie.id}/images?api_key=${API_KEY}`;
+    const endpoint = `https://api.themoviedb.org/3/${mediaType === "movie" ? "movie" : "tv"
+      }/${randomMovie.id}/images?api_key=${API_KEY}`;
 
     try {
       const response = await axios.get(endpoint);
@@ -166,9 +164,19 @@ const MoviesApi = () => {
     fetchMovieLogo();
   }, [randomMovie]);
 
+
+  const getMediaLink = (item) => {
+    const baseUrl = item.media_type === "movie" ? "/movie" : "/tv";
+    return `${baseUrl}/${item.id}`;
+  };
+
+
+
+
   if (!randomMovie) return null;
 
   return (
+    <>
     <div className="background_container lg:pt-5 md:pt-5">
       <div className="flex-container flex-wrap">
         <div className="relative h-[300px] md:h-[450px] lg:h-[819px] m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 overflow-hidden">
@@ -235,20 +243,22 @@ const MoviesApi = () => {
                 : randomMovie.overview}
             </p>
 
-            <div className="text-gray-300 text-xs md:text-sm mb-4 md:mb-8">
+            <div className="text-gray-400 text-xs md:text-sm mb-4 md:mb-8">
               {getGenreNames(randomMovie.genre_ids)}
             </div>
 
             <div className="flex gap-2 md:gap-4">
-              <Button
-                variant="gradient"
-                size="sm"
-                className="flex items-center gap-2 px-4 md:px-8 py-2 md:py-3"
-              >
-                <Play size={20} />
-                <span>Play</span>
-              </Button>
-              <Link href="/info">
+              <Link href={getMediaLink(randomMovie)}>
+                <Button
+                  variant="gradient"
+                  size="sm"
+                  className="flex items-center gap-2 px-4 md:px-8 py-2 md:py-3"
+                >
+                  <Play size={20} />
+                  <span>Play</span>
+                </Button>
+              </Link>
+              <Link href={getMediaLink(randomMovie)}>
                 <Button
                   variant="text"
                   size="sm"
@@ -262,9 +272,14 @@ const MoviesApi = () => {
           </div>
         </div>
       </div>
-      <MustWatch movies={movieData} />
+    
+
     </div>
+    <MustWatch movies={movieData} />
+    </>
   );
 };
+
+// export {movieData}
 
 export default MoviesApi;
