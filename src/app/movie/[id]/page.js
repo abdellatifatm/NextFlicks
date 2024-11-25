@@ -4,6 +4,7 @@ import axios from "axios";
 import { Play, Info, Star, AlarmClockCheck, CalendarDays } from "lucide-react";
 import { Button } from "@material-tailwind/react";
 import Link from "next/link";
+import Cast from "../../components/Cast";
 
 export default function MovieHero({ params }) {
   const MOBILE_BREAKPOINT = 960;
@@ -19,6 +20,7 @@ export default function MovieHero({ params }) {
   const [showTrailer, setShowTrailer] = useState(false);
   const [movieLogos, setMovieLogos] = useState({});
   const [showTitle, setShowTitle] = useState(false);
+  const [cast, setCast] = useState([]);
 
   useEffect(() => {
     setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
@@ -45,6 +47,12 @@ export default function MovieHero({ params }) {
             axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`),
             axios.get(`https://api.themoviedb.org/3/movie/${id}/release_dates?api_key=${API_KEY}`)
           ]);
+
+          const castResponse = await axios.get(
+            `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API_KEY}`
+          );
+
+          setCast(castResponse.data.cast);
 
           const usRating = ratingsResponse.data.results.find(
             rating => rating.iso_3166_1 === 'US'
@@ -252,9 +260,12 @@ export default function MovieHero({ params }) {
                 </Button>
               </Link>
             </div> */}
+
+
           </div>
         </div>
       </div>
+      <Cast cast={cast} />
     </div>
   );
 }

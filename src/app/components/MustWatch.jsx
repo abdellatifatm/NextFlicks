@@ -21,21 +21,23 @@ export default function MustWatch({ movies }) {
   };
 
 
-  
+
   const getMediaLink = (item) => {
     const baseUrl = item.media_type === "movie" ? "/movie" : "/tv";
     return `${baseUrl}/${item.id}`;
   };
 
   return (
-    <div className="must-watch-container rounded-xl mx-4 px-3 py-10 text-blue-gray-900 absolute">
-    <div className="text-2xl font-semibold md:text-3xl ml-2 mb-6 text-left flex items-center ">
-  <h1>Must Watch</h1>
-  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"/></svg>
-</div>
+    <div className="rounded-xl mx-4 px-3 pt-10 text-blue-gray-900 " id='trending'>
+      <div className="text-2xl font-semibold md:text-3xl ml-2 mb-6 text-left flex items-center ">
+        <h1>Trending </h1>
+        {/* <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trending-up md:w-[28px] md:h-[28px] w-6 h-6"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg> */}
+
+        <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-right md:w-[28px] md:h-[28px] w-6 h-6"><path d="m9 18 6-6-6-6" /></svg>
+      </div>
 
       {movies && movies.length > 0 ? (
-        <div className="relative" id='mustwatch'>
+        <div className="relative" >
 
           <div
             className="movie-slider-container flex gap-4 h-[350px] overflow-x-auto scrollbar-hide"
@@ -43,7 +45,7 @@ export default function MustWatch({ movies }) {
           >
             {movies.map((movie) => (
               <div key={movie.id} className="movie-item md:p-1 max-w-[200px] flex-shrink-0">
-                 <Link href={getMediaLink(movie)}>
+                <Link href={getMediaLink(movie)}>
                   <img
                     loading="lazy"
                     src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
@@ -60,6 +62,6 @@ export default function MustWatch({ movies }) {
         <p className="text-center text-lg text-gray-400">No movies available to display.</p>
       )}
     </div>
-    
+
   );
 }

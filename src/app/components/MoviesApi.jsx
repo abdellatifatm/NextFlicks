@@ -4,6 +4,8 @@ import { Play, Info, Star, AlarmClockCheck, CalendarDays } from "lucide-react";
 import { Button } from "@material-tailwind/react";
 import Link from "next/link";
 import MustWatch from "./MustWatch";
+import Cast from "./Cast";
+import TopRatedTv from "./TopRatedTv";
 
 
 const API_KEY = "84ef9a6a385dcf0d998c9d83dd821e47";
@@ -240,7 +242,7 @@ const MoviesApi = () => {
             <p className="text-gray-300 text-[9px] md:text-sm lg:text-base max-w-xl mb-4 md:mb-6">
               {isMobile
                 ? truncateTextByWords(randomMovie.overview, 3, 10)
-                : randomMovie.overview}
+                : truncateTextByWords(randomMovie.overview, 3, 30)}
             </p>
 
             <div className="text-gray-400 text-xs md:text-sm mb-4 md:mb-8">
@@ -268,6 +270,7 @@ const MoviesApi = () => {
                   <span>Info</span>
                 </Button>
               </Link>
+              
             </div>
           </div>
         </div>
@@ -276,6 +279,7 @@ const MoviesApi = () => {
 
     </div>
     <MustWatch movies={movieData} />
+    <TopRatedTv />
     </>
   );
 };

@@ -4,6 +4,7 @@ import axios from "axios";
 import { Star, AlarmClockCheck, CalendarDays } from "lucide-react";
 import { Button } from "@material-tailwind/react";
 import Link from "next/link";
+import Cast from "../../components/Cast";
 
 
 
@@ -56,10 +57,11 @@ export default function Page({ params }) {
 
           //Get the credits
           const castResponse = await axios.get(
-            `https://api.themoviedb.org/3/tv/${id}/credits?api_key=${API_KEY}`
+            `https://api.themoviedb.org/3/tv/${id}/aggregate_credits?api_key=${API_KEY}`
           );
 
           setCast(castResponse.data.cast);
+          
 
 
           // Get US rating or first available rating
@@ -126,12 +128,7 @@ export default function Page({ params }) {
     fetchTrailer();
   }, [id]);
 
-  const getCastNames = (cast) => {
-    return cast
-      .slice(0, 3) // Take only the first 3 cast members
-      .map((member) => member.name) // Extract the name of each member
-      .join(", "); // Join names with a " • " separator
-  };
+
 
   const getGenreNames = (genres) => {
     return genres
@@ -295,19 +292,18 @@ export default function Page({ params }) {
             <p className="text-gray-300 text-[9px] md:text-sm lg:text-base max-w-xl mb-4 md:mb-6">
               {isMobile
                 ? truncateTextByWords(tvDetails.overview, 3, 10)
-                : tvDetails.overview}
+                : truncateTextByWords(tvDetails.overview, 3, 30)}
             </p>
 
             <div className="text-gray-400 text-xs md:text-sm mb-2">
             {getGenreNames(tvDetails.genres || [])}
             </div>
 
-            <div className="text-gray-400 text-xs md:text-sm mb-4">
-            {getCastNames(cast)}
-            </div>
+           
           </div>
         </div>
       </div>
+      <Cast cast={cast} />
     </div>
 
     </>
