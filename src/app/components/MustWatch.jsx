@@ -40,7 +40,7 @@ export default function MustWatch({ movies }) {
         <div className="relative" >
 
           <div
-            className="movie-slider-container flex gap-4 h-[350px] overflow-x-auto scrollbar-hide"
+            className="movie-slider-container flex gap-4 lg:h-[350px] sm:h-[200px] md:h-[250] overflow-x-auto scrollbar-hide"
             ref={containerRef}
           >
             {movies.map((movie) => (
@@ -50,7 +50,7 @@ export default function MustWatch({ movies }) {
                     loading="lazy"
                     src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
                     alt={movie.title || movie.name}
-                    className="movie-poster rounded-xl lg:w-[200px] md:w-[150px] w-[120px]  object-cover drop-shadow-lg transition-transform transform  hover:drop-shadow-2xl hover:opacity-90"
+                    className="movie-poster rounded-xl lg:w-[200px] lg:h-[280px] md:w-[150px] md:h-[225px] w-[120px] h-[180px]   object-cover drop-shadow-lg transition-transform transform  hover:drop-shadow-2xl hover:opacity-90"
                   />
                 </Link>
               </div>

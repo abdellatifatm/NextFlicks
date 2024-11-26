@@ -4,8 +4,8 @@ import { Play, Info, Star, AlarmClockCheck, CalendarDays } from "lucide-react";
 import { Button } from "@material-tailwind/react";
 import Link from "next/link";
 import MustWatch from "./MustWatch";
-import Cast from "./Cast";
 import TopRatedTv from "./TopRatedTv";
+import TopRatedMovies from "./TopRatedMovies";
 
 
 const API_KEY = "84ef9a6a385dcf0d998c9d83dd821e47";
@@ -280,6 +280,7 @@ const MoviesApi = () => {
     </div>
     <MustWatch movies={movieData} />
     <TopRatedTv />
+    <TopRatedMovies />
     </>
   );
 };
