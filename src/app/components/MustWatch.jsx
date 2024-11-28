@@ -28,8 +28,8 @@ export default function MustWatch({ movies }) {
   };
 
   return (
-    <div className="rounded-xl mx-4 px-3 pt-10 text-blue-gray-900 " id='trending'>
-      <div className="text-2xl font-semibold md:text-3xl ml-2 mb-6 text-left flex items-center ">
+    <div className="rounded-xl mx-4 px-3 pt-10 text-blue-gray-900 dark:text-gray-200  scroll-m-72 md:scroll-m-40 lg:scroll-m-40" id='trending'>
+      <div className="text-2xl font-semibold md:text-3xl ml-2 mb-2 text-left flex items-center ">
         <h1>Trending </h1>
         {/* <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trending-up md:w-[28px] md:h-[28px] w-6 h-6"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg> */}
 

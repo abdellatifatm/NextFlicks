@@ -5,6 +5,7 @@ import { Star, AlarmClockCheck, CalendarDays } from "lucide-react";
 import { Button } from "@material-tailwind/react";
 import Link from "next/link";
 import Cast from "../../components/Cast";
+import { Footer } from "../../components/Footer";
 
 
 
@@ -237,7 +238,7 @@ export default function Page({ params }) {
             )}
           </div>
 
-          <div className="relative z-20 h-full flex flex-col justify-end lg:py-64 pb-2 md:pb-16 px-4 md:px-8 max-w-7xl mx-auto">
+          <div className="relative z-20 h-full flex flex-col justify-end lg:py-64 py-6 md:py-32 px-4 md:px-8 max-w-7xl mx-auto">
             {tvLogos[tvDetails.id] ? (
               <div className="logo-container object-contain">
                 <img
@@ -304,6 +305,7 @@ export default function Page({ params }) {
         </div>
       </div>
       <Cast cast={cast} />
+      <Footer />
     </div>
 
     </>
