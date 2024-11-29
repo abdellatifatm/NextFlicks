@@ -67,7 +67,7 @@ export default function Header() {
             <a href="#">Upcoming</a>
           </MenuItem>{" "}
           <MenuItem>
-            <Link href="#top-rated-Movies">Top Rated</Link>
+            <Link href="/#top-rated-Movies">Top Rated</Link>
           </MenuItem>
         </MenuList>
       </Menu>
