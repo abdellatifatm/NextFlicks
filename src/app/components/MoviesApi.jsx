@@ -6,6 +6,7 @@ import Link from "next/link";
 import MustWatch from "./MustWatch";
 import TopRatedTv from "./TopRatedTv";
 import TopRatedMovies from "./TopRatedMovies";
+import Networks from "./Networks";
 
 
 const API_KEY = "84ef9a6a385dcf0d998c9d83dd821e47";
@@ -285,6 +286,7 @@ const MoviesApi = () => {
 
 
       </div>
+      <Networks />
       <MustWatch movies={movieData} />
       <TopRatedTv />
       <TopRatedMovies />
