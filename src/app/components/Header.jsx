@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   Navbar,
@@ -15,14 +15,46 @@ import {
 } from "@material-tailwind/react";
 
 export default function Header() {
-  const [openNav, setOpenNav] = React.useState(false);
+  const [openNav, setOpenNav] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    // Check for saved dark mode preference or system preference
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme === 'dark' || (!savedTheme && prefersDarkMode)) {
+      setDarkMode(true);
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    // Resize event listener
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
+
+    // Clean up event listener
+    return () => {
+      window.removeEventListener("resize", () => {});
+    };
   }, []);
+
+  // Toggle dark mode
+  const toggleDarkMode = () => {
+    const newMode = !darkMode;
+    setDarkMode(newMode);
+    
+    if (newMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  };
 
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 ">
@@ -58,7 +90,7 @@ export default function Header() {
             <a className="flex items-center">Movies</a>
           </Typography>
         </MenuHandler>
-        <MenuList className="p-2 text-blue-gray-900 dark:text-gray-200  bg-white/30 backdrop-blur-xl border-none rounded-lg shadow-lg">
+        <MenuList className="p-2 text-blue-gray-900 dark:text-gray-200 dark:bg-gray-900/30 bg-white/30 backdrop-blur-xl border-none rounded-lg shadow-lg">
           <MenuItem>Popular</MenuItem>
           <MenuItem>
             <a href="#">Now Playing</a>
@@ -98,7 +130,7 @@ export default function Header() {
             <a className="flex items-center">Tv Shows</a>
           </Typography>
         </MenuHandler>
-        <MenuList className="p-2 text-blue-gray-900 dark:text-gray-200  bg-white/30 backdrop-blur-xl border-none rounded-lg shadow-lg">
+        <MenuList className="p-2 text-blue-gray-900 dark:text-gray-200  dark:bg-gray-900/30 bg-white/30 backdrop-blur-xl border-none rounded-lg shadow-lg">
           <MenuItem>Popular</MenuItem>
           <MenuItem>
             <a href="#">Airing Today</a>
@@ -165,7 +197,7 @@ export default function Header() {
             <a className="flex items-center"> Top Rated</a>
           </Typography>
         </MenuHandler>
-        <MenuList className="p-2 text-blue-gray-900 dark:text-gray-200  bg-white/30 backdrop-blur-xl border-none rounded-lg shadow-lg">
+        <MenuList className="p-2 text-blue-gray-900 dark:text-gray-200 dark:bg-gray-900/30 bg-white/30 backdrop-blur-xl border-none rounded-lg shadow-lg">
           <MenuItem>
             <Link href="#top-rated-Movies">Movies</Link>
           </MenuItem>
@@ -183,14 +215,61 @@ export default function Header() {
   return (
     <Navbar className="mx-auto max-w-screen-xl px-4 py-2 lg:px-8 lg:py-4 bg-opacity-55 border-none dark:bg-gray-900/30 ">
       <div className="container mx-auto flex items-center justify-between dark:text-gray-200  text-blue-gray-900">
-        <Link href="/">
+        <Link href="/#home">
           <Typography className="mr-4 cursor-pointer py-1.5 font-bold">
             NextFlicks
           </Typography>
         </Link>
         <div className="hidden lg:block">{navList}</div>
-        <div className="flex items-center gap-x-1">
-          <Link href="/sign-in">
+        <div className="flex items-center gap-x-2">
+          {/* Dark Mode Toggle */}
+          <button 
+            onClick={toggleDarkMode} 
+            className="p-2 rounded-full transition-colors  duration-300 lg:block md:hidden sm:hidden hidden"
+            aria-label="Toggle Dark Mode"
+          >
+            {darkMode ? (
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="24" 
+                height="24" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                className="lucide lucide-sun"
+              >
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 2v2" />
+                <path d="M12 20v2" />
+                <path d="m4.93 4.93 1.41 1.41" />
+                <path d="m17.66 17.66 1.41 1.41" />
+                <path d="M2 12h2" />
+                <path d="M20 12h2" />
+                <path d="m6.34 17.66-1.41 1.41" />
+                <path d="m19.07 4.93-1.41 1.41" />
+              </svg>
+            ) : (
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="24" 
+                height="24" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                className="lucide lucide-moon"
+              >
+                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+              </svg>
+            )}
+          </button>
+
+          {/* <Link href="/sign-in">
             <Button variant="text" size="sm" className="hidden lg:inline-block dark:text-gray-200 ">
               <span>Sign In</span>
             </Button>
@@ -204,7 +283,7 @@ export default function Header() {
             >
               <span>Sign up</span>
             </Button>
-          </Link>
+          </Link> */}
         </div>
         <IconButton
           variant="text"
@@ -248,17 +327,64 @@ export default function Header() {
         <div className="container mx-auto">
           {navList}
           <div className="flex items-center gap-x-1">
-            <Button fullWidth variant="text" size="sm" className="dark:text-gray-200">
+            {/* <Button fullWidth variant="text" size="sm" className="dark:text-gray-200">
               <Link href="/sign-in">
                 <span>Sign In</span>
               </Link>
             </Button>
-            {/* className="px-[30px] py-[9px]" */}
             <Button fullWidth variant="gradient" size="sm" className="">
               <Link href="/sign-up">
                 <span>Sign up</span>
               </Link>
-            </Button>
+            </Button> */}
+            {/* Dark Mode Toggle for Mobile */}
+            <div className="flex justify-center w-full mt-2">
+              <button 
+                onClick={toggleDarkMode} 
+                className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
+                aria-label="Toggle Dark Mode"
+              >
+                {darkMode ? (
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    width="24" 
+                    height="24" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    className="lucide lucide-sun"
+                  >
+                    <circle cx="12" cy="12" r="4" />
+                    <path d="M12 2v2" />
+                    <path d="M12 20v2" />
+                    <path d="m4.93 4.93 1.41 1.41" />
+                    <path d="m17.66 17.66 1.41 1.41" />
+                    <path d="M2 12h2" />
+                    <path d="M20 12h2" />
+                    <path d="m6.34 17.66-1.41 1.41" />
+                    <path d="m19.07 4.93-1.41 1.41" />
+                  </svg>
+                ) : (
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    width="24" 
+                    height="24" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="#263238" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    className="lucide lucide-moon"
+                  >
+                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                  </svg>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </Collapse>

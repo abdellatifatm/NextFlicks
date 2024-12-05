@@ -187,7 +187,7 @@ const MoviesApi = () => {
 
   return (
     <>
-      <div className="background_container lg:pt-5 md:pt-5">
+      <div id="home" className="background_container lg:pt-5 md:pt-5 scroll-m-28">
         <div className="flex-container flex-wrap">
           <div className="relative h-[300px] md:h-[450px] lg:h-[819px] m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 overflow-hidden">
             <div className="absolute object-cover inset-0 bg-gray-900 rounded-xl">

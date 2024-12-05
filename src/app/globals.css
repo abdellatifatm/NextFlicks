@@ -2,9 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-html{
+html {
   scroll-behavior: smooth;
-  
 }
 
 /* Add this to your global CSS or inside your component's CSS module */
@@ -19,17 +18,14 @@ html{
   scrollbar-width: none;  /* Firefox */
 }
 
-
-:root {
-  --background: white;
-  --foreground: #171717;
+html.dark {
+  --background: #171717;
+  --foreground: #ededed;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #171717;
-    --foreground: #ededed;
-  }
+html.light {
+  --background: white;
+  --foreground: #171717;
 }
 
 body {
