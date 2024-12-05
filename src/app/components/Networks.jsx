@@ -19,7 +19,7 @@ export default function Networks() {
       },
       {
         name: "Max",
-        logo: "https://shorturl.at/QWKdG",
+        logo: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5fbef0ad-821e-42ff-bd50-c54a0742abc7/dfudrq1-f161a753-d067-4c18-84f6-ca87785a41fe.png/v1/fill/w_1280,h_352/max__streaming_service__white_variant_logo_by_ajkelley_dfudrq1-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MzUyIiwicGF0aCI6IlwvZlwvNWZiZWYwYWQtODIxZS00MmZmLWJkNTAtYzU0YTA3NDJhYmM3XC9kZnVkcnExLWYxNjFhNzUzLWQwNjctNGMxOC04NGY2LWNhODc3ODVhNDFmZS5wbmciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.Mc1BkNcNJ9OvDQjnGigLX854nATwixmC37lMVLRJcEk",
         bgColor: "bg-[#002DE5]",
       },
       {
