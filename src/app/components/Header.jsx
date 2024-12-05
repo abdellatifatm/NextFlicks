@@ -67,7 +67,7 @@ export default function Header() {
             <a href="#">Upcoming</a>
           </MenuItem>{" "}
           <MenuItem>
-            <Link href="#top-rated-Movies">Top Rated</Link>
+            <Link href="/#top-rated-Movies">Top Rated</Link>
           </MenuItem>
         </MenuList>
       </Menu>
@@ -248,7 +248,7 @@ export default function Header() {
         <div className="container mx-auto">
           {navList}
           <div className="flex items-center gap-x-1">
-            <Button fullWidth variant="text" size="sm" className="">
+            <Button fullWidth variant="text" size="sm" className="dark:text-gray-200">
               <Link href="/sign-in">
                 <span>Sign In</span>
               </Link>
