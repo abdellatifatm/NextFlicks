@@ -44,7 +44,8 @@ export default function Networks() {
       },
       {
         name: "Hulu",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Hulu_2019.svg/1200px-Hulu_2019.svg.png",
+        // logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Hulu_2019.svg/1200px-Hulu_2019.svg.png",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Hulu_logo_%282018%29.svg/640px-Hulu_logo_%282018%29.svg.png",
         bgColor: "bg-[#171E27]",
         bgShadow: "shadow-lg shadow-[#171E27]/50",
         // darkBgShadow: " dark:shadow-[#15E884]/50 ",

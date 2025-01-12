@@ -132,7 +132,7 @@ const MoviesApi = () => {
         })
       );
 
-      setMovieData(resultsWithDetails);
+      setMovieData(resultsWithDetails.slice(0, 18));
       const randomIndex = Math.floor(Math.random() * resultsWithDetails.length);
       setRandomMovie(resultsWithDetails[randomIndex]);
     } catch (error) {

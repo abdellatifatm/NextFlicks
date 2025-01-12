@@ -99,7 +99,7 @@ export default function Header() {
             <a href="#">Upcoming</a>
           </MenuItem>{" "}
           <MenuItem>
-            <Link href="/#top-rated-Movies">Top Rated</Link>
+            <Link href="/top-rated-Movies">Top Rated</Link>
           </MenuItem>
         </MenuList>
       </Menu>
@@ -139,7 +139,7 @@ export default function Header() {
           <MenuItem>On Tv</MenuItem>
           {/* </Link> */}
           <MenuItem>
-            <Link href="#top-rated-TV-Shows">Top Rated</Link>
+            <Link href="/top-rated-TV-Shows">Top Rated</Link>
           </MenuItem>
         </MenuList>
       </Menu>
@@ -167,7 +167,7 @@ export default function Header() {
           <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
           <polyline points="16 7 22 7 22 13" />
         </svg>
-        <Link href="/#trending" className="flex items-center">
+        <Link href="/trending" className="flex items-center">
           Trending
         </Link>
       </Typography>
@@ -199,11 +199,11 @@ export default function Header() {
         </MenuHandler>
         <MenuList className="p-2 text-blue-gray-900 dark:text-gray-200 dark:bg-gray-900/30 bg-white/30 backdrop-blur-xl border-none rounded-lg shadow-lg">
           <MenuItem>
-            <Link href="#top-rated-Movies">Movies</Link>
+            <Link href="/top-rated-Movies">Movies</Link>
           </MenuItem>
 
           <MenuItem>
-            <Link href="#top-rated-TV-Shows">Tv Shows</Link>
+            <Link href="/top-rated-TV-Shows">Tv Shows</Link>
           </MenuItem>
         </MenuList>
       </Menu>

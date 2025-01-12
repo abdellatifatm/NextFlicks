@@ -43,14 +43,14 @@ const networks = [
 ];
 
 export default function TopRatedMovies({ params }) {
-  const API_KEY = "84ef9a6a385dcf0d998c9d83dd821e47"
+  const API_KEY = "84ef9a6a385dcf0d998c9d83dd821e47";
   const [movies, setMovies] = useState([]);
   const [tvShows, setTvShows] = useState([]);
   const [active, setActive] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const resolvedParams = React.use(params);
   const networkId = resolvedParams?.id ? parseInt(resolvedParams.id) : null;
-  
+
   // Find network name based on ID
   const networkName = networks.find(network => network.id === networkId)?.name || 'Network';
 
@@ -170,14 +170,16 @@ export default function TopRatedMovies({ params }) {
           </div>
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 sm:gap-4">
             {movies.map((movie) => (
-              <div key={movie.id} className="movie-item">
+              <div key={movie.id} className="movie-item relative group">
                 <Link href={`/movie/${movie.id}`}>
-                  <img
-                    loading="lazy"
-                    src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                    alt={movie.title || 'Movie Poster'}
-                    className="rounded-xl w-full aspect-[2/3] object-cover drop-shadow-lg transition-transform transform hover:drop-shadow-2xl hover:opacity-90"
-                  />
+                  <div className="relative rounded-xl overflow-hidden">
+                    <img
+                      loading="lazy"
+                      src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                      alt={movie.title || 'Movie Poster'}
+                      className="w-full aspect-[2/3] object-cover drop-shadow-lg transition-transform transform hover:drop-shadow-2xl hover:opacity-90 group-hover:scale-110"
+                    />
+                  </div>
                 </Link>
               </div>
             ))}
@@ -200,14 +202,16 @@ export default function TopRatedMovies({ params }) {
           </div>
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 sm:gap-4">
             {tvShows.map((tv) => (
-              <div key={tv.id} className="movie-item">
+              <div key={tv.id} className="movie-item relative group">
                 <Link href={`/tv/${tv.id}`}>
-                  <img
-                    loading="lazy"
-                    src={`https://image.tmdb.org/t/p/w500/${tv.poster_path}`}
-                    alt={tv.name || 'TV Show Poster'}
-                    className="rounded-xl w-full aspect-[2/3] object-cover drop-shadow-lg transition-transform transform hover:drop-shadow-2xl hover:opacity-90"
-                  />
+                  <div className="relative rounded-xl overflow-hidden">
+                    <img
+                      loading="lazy"
+                      src={`https://image.tmdb.org/t/p/w500/${tv.poster_path}`}
+                      alt={tv.name || 'TV Show Poster'}
+                      className="w-full aspect-[2/3] object-cover drop-shadow-lg transition-transform transform hover:drop-shadow-2xl hover:opacity-90 group-hover:scale-110"
+                    />
+                  </div>
                 </Link>
               </div>
             ))}
