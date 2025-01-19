@@ -27,7 +27,7 @@ export default function TopRatedTv() {
 
   return (
     <div className="rounded-xl mx-4 sm:mx-8 lg:mx-16 px-3 pt-10 text-blue-gray-900 dark:text-gray-200">
-      <div className="text-2xl font-semibold md:text-3xl ml-2 mb-6 text-left flex items-center">
+      <div className="text-2xl font-semibold md:text-3xl  mb-6 text-left flex items-center">
         <h1>Top Rated TV Shows</h1>
         <svg
           xmlns="http://www.w3.org/2000/svg"

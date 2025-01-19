@@ -207,6 +207,7 @@ export default function MovieHero({ params }) {
                   src={movieLogos[movieDetails.id]}
                   alt={`${movieDetails.title || movieDetails.name} logo`}
                   className="h-12 lg:max-w-md lg:h-24 w-auto max-w-[150px] md:max-h-24 object-contain mb-2 md:mb-4"
+                  style={{ filter: "drop-shadow(0 0 20px rgba(255, 255, 255, 0.5))" }}
                   onError={(e) => {
                     e.target.style.display = "none";
                   }}

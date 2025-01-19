@@ -10,7 +10,7 @@ export default function MustWatch({ movies }) {
 
   return (
     <div className="rounded-xl mx-4 sm:mx-8 lg:mx-16 px-3  text-blue-gray-900 dark:text-gray-200 scroll-m-72 md:scroll-m-40 lg:scroll-m-40" id='trending'>
-      <div className="text-2xl font-semibold md:text-3xl ml-2 mb-6 text-left flex items-center">
+      <div className="text-2xl font-semibold md:text-3xl  mb-6 text-left flex items-center">
         <h1>Trending</h1>
         <svg
           xmlns="http://www.w3.org/2000/svg"

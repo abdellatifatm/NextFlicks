@@ -1,115 +1,160 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function Cast({ cast }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [slidesPerView, setSlidesPerView] = useState(6);
+  const [slidesPerView, setSlidesPerView] = useState(8);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const scrollRef = useRef(null);
 
-  // Limit to first 30 cast members
-  const displayedCast = cast.slice(0, 50);
+  // Limit to first 50 cast members
+  const displayedCast = cast?.slice(0, 50) || [];
 
-  // Update slides per view based on screen width
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1024) setSlidesPerView(6);
+      if (window.innerWidth >= 1536) setSlidesPerView(8);
+      else if (window.innerWidth >= 1280) setSlidesPerView(7);
+      else if (window.innerWidth >= 1024) setSlidesPerView(6);
       else if (window.innerWidth >= 768) setSlidesPerView(4);
       else setSlidesPerView(3);
     };
 
-    // Set initial slides
     handleResize();
-
-    // Add event listener
     window.addEventListener('resize', handleResize);
-
-    // Cleanup event listener
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Calculate total number of pages
   const totalPages = Math.ceil(displayedCast.length / slidesPerView);
 
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) => 
-      (prevIndex + 1) % totalPages
-    );
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: scrollRef.current.offsetWidth, behavior: 'smooth' });
+    }
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prevIndex) => 
-      (prevIndex - 1 + totalPages) % totalPages
-    );
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: -scrollRef.current.offsetWidth, behavior: 'smooth' });
+    }
+  };
+
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setStartX(e.pageX - scrollRef.current.offsetLeft);
+    setScrollLeft(scrollRef.current.scrollLeft);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    scrollRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleTouchStart = (e) => {
+    setIsDragging(true);
+    setStartX(e.touches[0].pageX - scrollRef.current.offsetLeft);
+    setScrollLeft(scrollRef.current.scrollLeft);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging) return;
+    const x = e.touches[0].pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    scrollRef.current.scrollLeft = scrollLeft - walk;
   };
 
   return (
-    <div className="font-[sans-serif] my-10 relative max-w-7xl mx-auto">
-      {/* Navigation Buttons */}
-      {totalPages > 1 && (
-        <>
-          <button 
-            onClick={prevSlide} 
-            className="absolute left-0 lg:ml-[-36px]  top-[4.5rem]  z-10 transform -translate-y-1/2 dark:bg-gray-500 bg-gray-900 dark:hover:bg-white/75 hover:bg-black/75  rounded-md p-1"
-          >
-            <ChevronLeft className="w-6 h-6 dark:text-blue-gray-900 text-gray-200" />
-          </button>
-          <button 
-            onClick={nextSlide} 
-            className="absolute right-0 top-[4.5rem] lg:mr-[-36px] z-10 transform -translate-y-1/2 dark:bg-gray-500 bg-gray-900 dark:hover:bg-white/75 hover:bg-black/75 rounded-md p-1"
-          >
-            <ChevronRight className="w-6 h-6 dark:text-blue-gray-900 text-gray-200"  />
-          </button>
-        </>
-      )}
-
-      {/* Cast Grid */}
-      <div className="grid lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 grid-cols-3 gap-0 lg:gap-5 md:gap-1 text-center">
-        {displayedCast
-          .slice(
-            currentIndex * slidesPerView, 
-            (currentIndex * slidesPerView) + slidesPerView
-          )
-          .map((actor) => (
-            <div key={actor.id} className="flex flex-col items-center">
-              <img
-                loading="lazy"
-                src={
-                  actor.profile_path
-                    ? `https://image.tmdb.org/t/p/w500/${actor.profile_path}`
-                    : "/avatar.png"
-                }
-                alt={actor.name}
-                className="lg:w-32 lg:h-32 md:w-32 md:h-32 w-14 h-14 rounded-xl inline-block object-cover shadow-xl"
-              />
-              <div className="py-4">
-                <h4 className="text-gray-800 dark:text-gray-200 text-xs lg:text-base  font-bold">
-                  {actor.name}
-                </h4>
-                <p className="text-gray-800 dark:text-gray-200 text-sm lg:text-base  mt-1">
-                  {actor.roles && actor.roles.length > 0 
-                    ? actor.roles[0].character 
-                    : actor.character}
-                </p>
+    <div className="w-full max-w-[1400px] mx-auto my-8">
+      <h1 className="text-2xl font-semibold md:text-3xl text-blue-gray-900 dark:text-gray-200 mb-6 px-4">Cast</h1>
+      {/* <div className="text-2xl font-semibold md:text-3xl text-blue-gray-900 dark:text-gray-200 px-4  mb-6 flex items-center">
+        <h1>Cast</h1>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="lucide lucide-chevron-right md:w-[28px] md:h-[28px] w-6 h-6"
+        >
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </div>         */}
+      <div className="relative group">
+        <div 
+          ref={scrollRef}
+          className="overflow-x-auto scrollbar-hide scroll-smooth"
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
+          onMouseMove={handleMouseMove}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleMouseUp}
+          onTouchMove={handleTouchMove}
+        >
+          <div className="inline-flex gap-4 pl-4 pr-4 md:gap-6">
+            {displayedCast.map((actor, index) => (
+              <div 
+                key={actor.id} 
+                className={`flex-none w-[110px] sm:w-[160px] md:w-[180px] lg:w-[200px]`}
+                style={{ WebkitTouchCallout: 'none', WebkitUserSelect: 'none' }}
+              >
+                <div className="aspect-[2/3] overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
+                  <img
+                    src={
+                      actor.profile_path
+                        ? `https://image.tmdb.org/t/p/w500/${actor.profile_path}`
+                        : "/avatar.png"
+                    }
+                    alt={actor.name}
+                    className="w-full h-full object-cover transition-transform hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="mt-2">
+                  <h3 className="text-gray-800 dark:text-gray-200 text-sm font-bold truncate">
+                    {actor.name}
+                  </h3>
+                  <p className="text-gray-800 dark:text-gray-200 text-sm truncate">
+                    {actor.roles && actor.roles.length > 0
+                      ? actor.roles[0].character
+                      : actor.character}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
-      </div>
-
-      {/* Pagination Dots */}
-      {totalPages > 1 && (
-        <div className="flex justify-center mt-4">
-          {[...Array(totalPages)].map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`w-3 h-3 mx-2 rounded-full ${
-                currentIndex === index 
-                  ? 'bg-gray-900 dark:bg-gray-200' 
-                  : 'bg-gray-300 dark:bg-gray-600'
-              }`}
-            />
-          ))}
+            ))}
+          </div>
         </div>
-      )}
+
+        {/* Navigation Arrows - Hidden on Mobile */}
+        <button
+          onClick={prevSlide}
+          className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 h-full items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+          aria-label="Previous slide"
+        >
+          <div className="bg-black/50 hover:bg-black/75 rounded-lg p-2">
+            <ChevronLeft className="w-6 h-6 text-white" />
+          </div>
+        </button>
+        <button
+          onClick={nextSlide}
+          className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 h-full items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+          aria-label="Next slide"
+        >
+          <div className="bg-black/50 hover:bg-black/75 rounded-lg p-2">
+            <ChevronRight className="w-6 h-6 text-white" />
+          </div>
+        </button>
+      </div>
     </div>
   );
 }

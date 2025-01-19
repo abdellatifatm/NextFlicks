@@ -24,9 +24,11 @@ const MoviesApi = () => {
   const fetchMovieDetails = async (item) => {
     const mediaType = item.media_type;
     const isMovie = mediaType === "movie";
-    const endpoint = `https://api.themoviedb.org/3/${isMovie ? "movie" : "tv"}/${item.id
-      }?api_key=${API_KEY}&append_to_response=${isMovie ? "release_dates" : "content_ratings"
-      }`;
+    const endpoint = `https://api.themoviedb.org/3/${
+      isMovie ? "movie" : "tv"
+    }/${item.id}?api_key=${API_KEY}&append_to_response=${
+      isMovie ? "release_dates" : "content_ratings"
+    }`;
 
     try {
       const response = await axios.get(endpoint);
@@ -39,7 +41,8 @@ const MoviesApi = () => {
         if (response.data.runtime) {
           const hours = Math.floor(response.data.runtime / 60);
           const minutes = response.data.runtime % 60;
-          formattedRuntime = hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;
+          formattedRuntime =
+            hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;
         }
 
         const usRelease = response.data.release_dates?.results?.find(
@@ -52,13 +55,15 @@ const MoviesApi = () => {
           usRelease?.release_dates[3]?.certification ||
           usRelease?.release_dates[4]?.certification ||
           usRelease?.release_dates[5]?.certification ||
-          contentRating
-          ;
+          contentRating;
       } else {
         const usRating = response.data.content_ratings?.results?.find(
-          (rating) => rating.iso_3166_1 === "US" 
+          (rating) => rating.iso_3166_1 === "US"
         );
-        contentRating = usRating?.rating || response.data.content_ratings.results[0]?.rating || contentRating;
+        contentRating =
+          usRating?.rating ||
+          response.data.content_ratings.results[0]?.rating ||
+          contentRating;
       }
 
       return { contentRating, voteAverage, formattedRuntime };
@@ -99,8 +104,9 @@ const MoviesApi = () => {
     if (!randomMovie) return;
 
     const mediaType = randomMovie.media_type;
-    const endpoint = `https://api.themoviedb.org/3/${mediaType === "movie" ? "movie" : "tv"
-      }/${randomMovie.id}/images?api_key=${API_KEY}`;
+    const endpoint = `https://api.themoviedb.org/3/${
+      mediaType === "movie" ? "movie" : "tv"
+    }/${randomMovie.id}/images?api_key=${API_KEY}`;
 
     try {
       const response = await axios.get(endpoint);
@@ -158,7 +164,8 @@ const MoviesApi = () => {
 
   useEffect(() => {
     setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
-    const handleResize = () => setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
+    const handleResize = () =>
+      setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -174,20 +181,19 @@ const MoviesApi = () => {
     fetchMovieLogo();
   }, [randomMovie]);
 
-
   const getMediaLink = (item) => {
     const baseUrl = item.media_type === "movie" ? "/movie" : "/tv";
     return `${baseUrl}/${item.id}`;
   };
 
-
-
-
   if (!randomMovie) return null;
 
   return (
     <>
-      <div id="home" className="background_container lg:pt-5 md:pt-5 scroll-m-28">
+      <div
+        id="home"
+        className="background_container lg:pt-5 md:pt-5 scroll-m-28"
+      >
         <div className="flex-container flex-wrap">
           <div className="relative h-[300px] md:h-[450px] lg:h-[819px] m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 overflow-hidden">
             <div className="absolute object-cover inset-0 bg-gray-900 rounded-xl">
@@ -205,7 +211,9 @@ const MoviesApi = () => {
                   <img
                     src={movieLogos[randomMovie.id]}
                     alt={`${randomMovie.title || randomMovie.name} logo`}
+                    // className="h-12 lg:max-w-md lg:h-24 w-auto max-w-[150px] md:max-h-24 object-contain mb-2 md:mb-4  "
                     className="h-12 lg:max-w-md lg:h-24 w-auto max-w-[150px] md:max-h-24 object-contain mb-2 md:mb-4"
+                    style={{ filter: "drop-shadow(0 0 10px rgba(255, 255, 255, 0.5))" }}
                     onError={(e) => {
                       e.target.style.display = "none";
                     }}
@@ -231,12 +239,13 @@ const MoviesApi = () => {
                     : "Not Rated"}
                 </span>
 
-                {randomMovie.media_type === "movie" && randomMovie.formattedRuntime && (
-                  <span className="text-gray-300 text-xs md:text-sm flex items-center gap-2">
-                    <AlarmClockCheck size={16} color="#f9fafb" />
-                    <span>{randomMovie.formattedRuntime}</span>
-                  </span>
-                )}
+                {randomMovie.media_type === "movie" &&
+                  randomMovie.formattedRuntime && (
+                    <span className="text-gray-300 text-xs md:text-sm flex items-center gap-2">
+                      <AlarmClockCheck size={16} color="#f9fafb" />
+                      <span>{randomMovie.formattedRuntime}</span>
+                    </span>
+                  )}
 
                 <span className="text-gray-300 text-xs md:text-sm flex items-center gap-2">
                   <CalendarDays size={16} color="#f9fafb" />
@@ -278,13 +287,10 @@ const MoviesApi = () => {
                     <span>Info</span>
                   </Button>
                 </Link>
-
               </div>
             </div>
           </div>
         </div>
-
-
       </div>
       <Networks />
       <MustWatch movies={movieData} />
