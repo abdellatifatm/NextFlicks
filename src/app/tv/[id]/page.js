@@ -6,6 +6,9 @@ import { Button } from "@material-tailwind/react";
 import Link from "next/link";
 import Cast from "../../components/Cast";
 import { Footer } from "../../components/Footer";
+import OverviewTv from "../../components/OverviewTv";
+
+
 
 
 
@@ -25,6 +28,7 @@ export default function Page({ params }) {
   const [tvLogos, setTvLogos] = useState({});
   const [showTitle, setShowTitle] = useState(false);
   const [cast, setCast] = useState([]);
+  const [overviewData, setOverviewData] = useState([]);
 
   useEffect(() => {
     setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
@@ -62,6 +66,7 @@ export default function Page({ params }) {
           );
 
           setCast(castResponse.data.cast);
+          setOverviewData(detailsResponse.data)
           
 
 
@@ -305,7 +310,9 @@ export default function Page({ params }) {
           </div>
         </div>
       </div>
+      <OverviewTv data={overviewData} />
       <Cast cast={cast} />
+
       <Footer />
     </div>
 

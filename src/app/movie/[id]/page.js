@@ -6,6 +6,7 @@ import { Button } from "@material-tailwind/react";
 import Link from "next/link";
 import Cast from "../../components/Cast";
 import { Footer } from "../../components/Footer";
+import OverviewMovie from "../../components/OverviewMovie";
 
 export default function MovieHero({ params }) {
   const MOBILE_BREAKPOINT = 960;
@@ -22,6 +23,8 @@ export default function MovieHero({ params }) {
   const [movieLogos, setMovieLogos] = useState({});
   const [showTitle, setShowTitle] = useState(false);
   const [cast, setCast] = useState([]);
+  const [overviewData, setOverviewData] = useState([]);
+  
 
   useEffect(() => {
     setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
@@ -57,6 +60,7 @@ export default function MovieHero({ params }) {
           );
 
           setCast(castResponse.data.cast);
+          setOverviewData(detailsResponse.data);
 
           const usRating = (() => {
             const usRatingEntry = ratingsResponse.data.results?.find(
@@ -286,6 +290,7 @@ export default function MovieHero({ params }) {
           </div>
         </div>
       </div>
+      <OverviewMovie data={overviewData} />
       <Cast cast={cast} />
       <Footer />
     </div>
