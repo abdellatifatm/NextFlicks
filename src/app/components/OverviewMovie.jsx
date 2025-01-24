@@ -51,7 +51,7 @@ export default function OverviewMovie({ data, directorName }) {
               {directorName || "Unknown"}
             </a>
           </li>
-          {data.budget && (
+          {data.budget != null && (
             <li className="flex">
               <span className="mr-4 font-semibold w-32 flex-shrink-0">Budget</span>
               <span className="flex-1">{`
@@ -59,7 +59,7 @@ export default function OverviewMovie({ data, directorName }) {
 {new Intl.NumberFormat().format(data.budget)}`}</span>
             </li>
           )}
-          {data.revenue && (
+          {data.revenue != null && (
             <li className="flex">
               <span className="mr-4 font-semibold w-32 flex-shrink-0">Revenue</span>
               <span className="flex-1">{`
