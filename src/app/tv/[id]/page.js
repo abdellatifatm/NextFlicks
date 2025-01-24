@@ -29,6 +29,7 @@ export default function Page({ params }) {
   const [showTitle, setShowTitle] = useState(false);
   const [cast, setCast] = useState([]);
   const [overviewData, setOverviewData] = useState([]);
+  // const [directorName, setDirectorName] = useState([]);
 
   useEffect(() => {
     setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
@@ -64,6 +65,10 @@ export default function Page({ params }) {
           const castResponse = await axios.get(
             `https://api.themoviedb.org/3/tv/${id}/aggregate_credits?api_key=${API_KEY}`
           );
+
+          // const directorName = await axios.get(
+          //   `https://api.themoviedb.org/3/tv/${id}/credits?api_key=${API_KEY}`
+          // );
 
           setCast(castResponse.data.cast);
           setOverviewData(detailsResponse.data)
@@ -250,7 +255,7 @@ export default function Page({ params }) {
                   src={tvLogos[tvDetails.id]}
                   alt={`${tvDetails.title || tvDetails.name} logo`}
                   className="h-12 lg:max-w-md lg:h-24 w-auto max-w-[150px] md:max-h-24 object-contain mb-2 md:mb-4"
-                  style={{ filter: "drop-shadow(0 0 10px rgba(255, 255, 255, 0.5))" }}
+                  // style={{ filter: "drop-shadow(0 0 10px rgba(255, 255, 255, 0.5))" }}
                   onError={(e) => {
                     e.target.style.display = "none";
                   }}
@@ -310,7 +315,7 @@ export default function Page({ params }) {
           </div>
         </div>
       </div>
-      <OverviewTv data={overviewData} />
+      <OverviewTv data={overviewData}/>
       <Cast cast={cast} />
 
       <Footer />

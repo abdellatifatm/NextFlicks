@@ -69,7 +69,7 @@ export default function Networks() {
   
     return (
       <div className="font-[sans-serif] my-10 w-full px-4">
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-7xl mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-7xl mx-auto lg:mx-auto  md:mx-[50px]">
           {networks.map((network, index) => (
             <div 
               key={index} 
@@ -94,7 +94,7 @@ export default function Networks() {
                 <img 
                   src={network.logo} 
                   loading="lazy" 
-                  className="p-12 lg:p-16 max-w-full object-contain" 
+                  className="p-8 lg:p-16 max-w-full object-contain" 
                   alt={network.name} 
                 />
               </span>

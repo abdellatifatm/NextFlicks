@@ -152,8 +152,8 @@ export default function TopRatedMovies({ params }) {
   return (
     <>
       <div className="flex flex-col min-h-screen">
-        <div className="rounded-xl mx-4 sm:mx-8 lg:mx-16 px-3 pt-20 text-blue-gray-900 dark:text-gray-200">
-          <div className="text-2xl font-semibold md:text-3xl ml-2 mb-6 text-left flex items-center">
+        <div className="rounded-lg mx-4 sm:mx-8 lg:mx-16 pt-20 text-blue-gray-900 dark:text-gray-200">
+          <div className="text-2xl font-semibold md:text-3xl ml-2 mb-2 text-left flex items-center">
             <h1>{networkName} Popular Movies</h1>
             <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -168,11 +168,11 @@ export default function TopRatedMovies({ params }) {
             <path d="m9 18 6-6-6-6" />
           </svg>
           </div>
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 sm:gap-4">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-4">
             {movies.map((movie) => (
               <div key={movie.id} className="movie-item relative group">
                 <Link href={`/movie/${movie.id}`}>
-                  <div className="relative rounded-xl overflow-hidden">
+                  <div className="relative rounded-lg overflow-hidden">
                     <img
                       loading="lazy"
                       src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
@@ -185,7 +185,7 @@ export default function TopRatedMovies({ params }) {
             ))}
           </div>
           
-          <div className="text-2xl font-semibold md:text-3xl ml-2 mt-10 mb-6 text-left flex items-center">
+          <div className="text-2xl font-semibold md:text-3xl ml-2 mt-10 mb-2 text-left flex items-center">
             <h1>{networkName} Popular TV Shows</h1>
             <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -200,11 +200,11 @@ export default function TopRatedMovies({ params }) {
             <path d="m9 18 6-6-6-6" />
           </svg>
           </div>
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 sm:gap-4">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-4">
             {tvShows.map((tv) => (
               <div key={tv.id} className="movie-item relative group">
                 <Link href={`/tv/${tv.id}`}>
-                  <div className="relative rounded-xl overflow-hidden">
+                  <div className="relative rounded-lg overflow-hidden">
                     <img
                       loading="lazy"
                       src={`https://image.tmdb.org/t/p/w500/${tv.poster_path}`}

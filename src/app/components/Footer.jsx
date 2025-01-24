@@ -10,15 +10,17 @@ export function Footer() {
         <div className=" flex w-full flex-col items-center justify-center py-4 md:flex-row md:justify-between">
           <Typography
             variant="small"
-            className="mb-4 text-center font-normal text-blue-gray-900 md:mb-0 dark:text-gray-200 "
+            className="mb-4 text-center font-normal text-blue-gray-900 md:mb-0 dark:text-gray-200 md:text-left "
           >
-            &copy; {currentYear} NextFlicks.
+            &copy; {currentYear} NextFlicks. All rights reserved. <br />
+            {/* Made with <span className="text-red-500">❤ </span>by <span className="font-bold underline"><a target="_blank" href="https://www.linkedin.com/in/abdellatif-ait-mahda">abdellatifatm</a></span>, using data from <span className="underline">TMDb.</span> */}
+            Data sourced from <span className="underline  "><a href="https://www.themoviedb.org/" target="_blank">TMDb.</a></span>
           </Typography>
           <Typography
             variant="small"
-            className="mb-4 text-center font-normal text-blue-gray-900 dark:text-gray-200  md:mb-0 lg:pr-[1.5rem]"
+            className="mb-4 text-center font-normal text-blue-gray-900 dark:text-gray-200  md:mb-0 lg:pr-[8rem]"
           >
-            made with <span className="text-red-500">❤ </span>by <span className="font-bold underline"><a target="_blank" href="https://www.linkedin.com/in/abdellatif-ait-mahda">abdellatifatm</a></span>
+            made with <span className="text-red-500">❤ </span>by <span className=" underline"><a target="_blank" href="https://www.linkedin.com/in/abdellatif-ait-mahda">Abdellatif Ait Mahda</a></span>
           </Typography>
 
           

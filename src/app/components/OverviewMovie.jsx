@@ -1,4 +1,6 @@
-export default function OverviewMovie({ data }) {
+import languageMap from "../data/languages.json";
+
+export default function OverviewMovie({ data, directorName }) {
   if (!data) {
     return null; // Handle cases where the data is not yet available
   }
@@ -23,47 +25,81 @@ export default function OverviewMovie({ data }) {
             : "No overview available for this movie."}
         </p>
         <ul className="space-y-2">
-          <li>
-            <span className="mr-12 font-semibold">Release Date</span>{" "}
-            {data.release_date}
+          <li className="flex">
+            <span className="mr-4 font-semibold w-32 flex-shrink-0">Released</span>
+            <span className="flex-1">
+              {data.release_date
+                ? new Date(data.release_date).toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                  })
+                : "N/A"}
+            </span>
           </li>
-          <li>
-            <span className="mr-12 font-semibold">Runtime</span>{" "}
-            {data.runtime
-              ? `${Math.floor(data.runtime / 60)}h ${data.runtime % 60}min`
-              : "N/A"}
+          <li className="flex">
+            <span className="mr-4 font-semibold w-32 flex-shrink-0">Runtime</span>
+            <span className="flex-1">
+              {data.runtime
+                ? `${Math.floor(data.runtime / 60)}h ${data.runtime % 60}min`
+                : "N/A"}
+            </span>
           </li>
-          <li>
-            <span className="mr-12 font-semibold">Director</span>{" "}
-            <a href="#" className="text-blue-600 underline">
-              {/* {data} */}
+          <li className="flex">
+            <span className="mr-4 font-semibold w-32 flex-shrink-0">Director</span>
+            <a href="#" className="text-blue-600 underline flex-1">
+              {directorName || "Unknown"}
             </a>
           </li>
-          <li>
-            <span className="mr-12 font-semibold">Genre</span>{" "}
-            <a href="#" className="text-blue-600 underline">
+          {data.budget && (
+            <li className="flex">
+              <span className="mr-4 font-semibold w-32 flex-shrink-0">Budget</span>
+              <span className="flex-1">{`$${new Intl.NumberFormat().format(data.budget)}`}</span>
+            </li>
+          )}
+          {data.revenue && (
+            <li className="flex">
+              <span className="mr-4 font-semibold w-32 flex-shrink-0">Revenue</span>
+              <span className="flex-1">{`$${new Intl.NumberFormat().format(data.revenue)}`}</span>
+            </li>
+          )}
+          <li className="flex">
+            <span className="mr-4 font-semibold w-32 flex-shrink-0">Genre</span>
+            <a href="#" className="text-blue-600 underline flex-1">
               {data.genres
                 ?.map((genre) => genre.name)
                 .slice(0, 3)
                 .join(", ") || "Unknown"}
             </a>
           </li>
-          <li>
-            <span className="mr-12 font-semibold">Status</span> {data.status}
+          <li className="flex">
+            <span className="mr-4 font-semibold w-32 flex-shrink-0">Status</span>
+            <span className="flex-1">{data.status}</span>
           </li>
-          <li>
-            <span className="mr-12 font-semibold">Language</span>{" "}
-            {data.spoken_languages
-              ? `${data.spoken_languages.map((lang) => lang.name).join(", ")}`
-              : "N/A"}
+          <li className="flex">
+            <span className="mr-4 font-semibold w-32 flex-shrink-0">Language</span>
+            <span className="flex-1">
+              {data.spoken_languages && data.spoken_languages.length > 0
+                ? data.spoken_languages
+                    .map((lang) =>
+                      lang.english_name === "No Language"
+                        ? languageMap[data.original_language] ||
+                          data.original_language
+                        : lang.english_name
+                    )
+                    .join(", ")
+                : languageMap[data.original_language] ||
+                  data.original_language ||
+                  "N/A"}
+            </span>
           </li>
-          <li>
-            <span className="mr-12 font-semibold">Production</span>{" "}
-            {data.production_companies
-              ? `${data.production_companies
-                  .map((prod) => prod.name)
-                  .join(", ")}`
-              : "N/A"}
+          <li className="flex">
+            <span className="mr-4 font-semibold w-32 flex-shrink-0">Production</span>
+            <span className="flex-1">
+              {data.production_companies
+                ? `${data.production_companies.map((prod) => prod.name).join(", ")}`
+                : "N/A"}
+            </span>
           </li>
         </ul>
       </div>

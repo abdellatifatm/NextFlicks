@@ -51,6 +51,7 @@ export default function Cast({ cast }) {
   };
 
   return (
+    cast?.length  > 0 &&(
     <div className="w-full max-w-[100%] mx-auto my-2">
       <h1 className="text-2xl font-semibold md:text-3xl text-blue-gray-900 dark:text-gray-200 mb-6 lg:px-14 pl-4">
         Cast
@@ -121,5 +122,7 @@ export default function Cast({ cast }) {
         </button>
       </div>
     </div>
+
+  )
   );
 }

@@ -26,8 +26,8 @@ export default function TopRatedTv() {
   };
 
   return (
-    <div className="rounded-xl mx-4 sm:mx-8 lg:mx-16 px-3 pt-10 text-blue-gray-900 dark:text-gray-200">
-      <div className="text-2xl font-semibold md:text-3xl  mb-6 text-left flex items-center">
+    <div className="rounded-lg mx-4 sm:mx-8 lg:mx-16 pt-10 text-blue-gray-900 dark:text-gray-200">
+      <div className="text-2xl font-semibold md:text-3xl  mb-2 text-left flex items-center">
         <h1>Top Rated TV Shows</h1>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -42,11 +42,11 @@ export default function TopRatedTv() {
           <path d="m9 18 6-6-6-6" />
         </svg>
       </div>
-      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 sm:gap-4">
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-4">
         {topTvShows.map((show) => (
           <div key={show.id} className="relative movie-item group">
             <Link href={getMediaLink(show)}>
-              <div className="relative rounded-xl overflow-hidden">
+              <div className="relative rounded-lg overflow-hidden">
                 <img
                   loading="lazy"
                   src={`https://image.tmdb.org/t/p/w500/${show.poster_path}`}
