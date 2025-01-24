@@ -55,13 +55,13 @@ export default function OverviewMovie({ data, directorName }) {
          {data.budget !== null && data.budget !== undefined && data.budget !== 0 && (
     <li className="flex">
       <span className="mr-4 font-semibold w-32 flex-shrink-0">Budget</span>
-      <span className="flex-1">{new Intl.NumberFormat().format(data.budget)}</span>
+      <span className="flex-1">${new Intl.NumberFormat().format(data.budget)}</span>
     </li>
   )}
   {data.revenue !== null && data.revenue !== undefined && data.revenue !== 0 && (
     <li className="flex">
       <span className="mr-4 font-semibold w-32 flex-shrink-0">Revenue</span>
-      <span className="flex-1">{new Intl.NumberFormat().format(data.revenue)}</span>
+      <span className="flex-1">${new Intl.NumberFormat().format(data.revenue)}</span>
     </li>
   )}
           <li className="flex">
