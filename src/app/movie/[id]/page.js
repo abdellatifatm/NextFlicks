@@ -25,7 +25,6 @@ export default function MovieHero({ params }) {
   const [cast, setCast] = useState([]);
   const [overviewData, setOverviewData] = useState([]);
   const [directorName, setDirectorName] = useState([]);
-  
 
   useEffect(() => {
     setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
@@ -62,25 +61,29 @@ export default function MovieHero({ params }) {
 
           setCast(castResponse.data.cast);
           setOverviewData(detailsResponse.data);
-          const director = castResponse.data.crew.find(member => member.job === "Director");
+          const director = castResponse.data.crew.find(
+            (member) => member.job === "Director"
+          );
           setDirectorName(director.name);
 
           const usRating = (() => {
             const usRatingEntry = ratingsResponse.data.results?.find(
               (rating) => rating.iso_3166_1 === "US"
             );
-          
+
             if (usRatingEntry) {
               const releaseDates = usRatingEntry.release_dates || [];
-              return releaseDates[0]?.certification ||
-                     releaseDates[1]?.certification ||
-                     releaseDates[2]?.certification || 
-                     releaseDates[3]?.certification ||
-                     releaseDates[4]?.certification ||
-                     releaseDates[5]?.certification ||
-                     "NR";
+              return (
+                releaseDates[0]?.certification ||
+                releaseDates[1]?.certification ||
+                releaseDates[2]?.certification ||
+                releaseDates[3]?.certification ||
+                releaseDates[4]?.certification ||
+                releaseDates[5]?.certification ||
+                "NR"
+              );
             }
-          
+
             return "NR";
           })();
 
@@ -96,7 +99,6 @@ export default function MovieHero({ params }) {
             voteAverage: detailsResponse.data.vote_average,
             formattedRuntime,
           });
-         
 
           setTimeout(() => setShowTrailer(true), 5000);
         } catch (error) {
@@ -106,7 +108,6 @@ export default function MovieHero({ params }) {
       fetchMovieDetails();
     }
   }, [id]);
-  
 
   useEffect(() => {
     const fetchTrailer = async () => {
@@ -294,6 +295,18 @@ export default function MovieHero({ params }) {
         </div>
       </div>
       <OverviewMovie data={overviewData} directorName={directorName} />
+      <div className="h-[200px] md:h-[330px] lg:h-[819px] m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 mb-10">
+        <iframe
+          src={`https://vidsrc.xyz/embed/movie/${movieDetails.id}`}
+          className="w-full h-full rounded-2xl shadow-xl"
+          frameBorder="0"
+          allowFullScreen
+          title="Movie Video"
+        />
+      </div>
+
+     
+
       <Cast cast={cast} />
       <Footer />
     </div>

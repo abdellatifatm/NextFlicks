@@ -316,6 +316,15 @@ export default function Page({ params }) {
         </div>
       </div>
       <OverviewTv data={overviewData}/>
+      <div className="h-[200px] md:h-[330px] lg:h-[819px] m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 mb-10">
+        <iframe
+          src={`https://vidsrc.xyz/embed/tv/${tvDetails.id}`}
+          className="w-full h-full rounded-2xl shadow-xl"
+          frameBorder="0"
+          allowFullScreen
+          title="Movie Video"
+        />
+      </div>
       <Cast cast={cast} />
 
       <Footer />

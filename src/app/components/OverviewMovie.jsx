@@ -6,7 +6,7 @@ export default function OverviewMovie({ data, directorName }) {
   }
 
   return (
-    <div className="flex flex-col lg:flex-row text-blue-gray-900 dark:text-gray-200 lg:mx-20 px-6 lg:p-10 gap-8 lg:gap-12 pb-10">
+    <div className="flex flex-col lg:flex-row text-blue-gray-900 dark:text-gray-200 lg:mx-20 px-6 lg:p-10 gap-8 lg:gap-12 pb-5">
       {/* Image Section */}
       <div className="">
         <img
