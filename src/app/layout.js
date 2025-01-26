@@ -15,7 +15,12 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
+export const viewport = {
+  themeColor: "#000000",
+};
+
 export const metadata = {
+  manifest: "/manifest.json",
   title: "NextFlicks",
   description: "Discover your next favorite movie or show on NextFlicks. Explore top-rated series, new releases, and personalized recommendations all in one place!",
 };
