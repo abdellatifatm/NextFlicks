@@ -53,7 +53,9 @@ export default function Networks() {
       },
       {
         name: "Paramount+",
-        logo: "https://thevaultnyc.com/wp-content/uploads/2022/10/Paramount_Logo_White.png",
+        // logo: "https://thevaultnyc.com/wp-content/uploads/2022/10/Paramount_Logo_White.png",
+        logo: "/Paramount-Plus-Logo-No-Background.png",
+
         bgColor: "bg-[#0074FF]",
         bgShadow: "shadow-lg shadow-[#0074FF]/50",
         id: 531,
