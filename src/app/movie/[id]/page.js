@@ -7,6 +7,7 @@ import Link from "next/link";
 import Cast from "../../components/Cast";
 import { Footer } from "../../components/Footer";
 import OverviewMovie from "../../components/OverviewMovie";
+import ScrollReveal from "../../components/ScrollReveal";
 
 export default function MovieHero({ params }) {
   const MOBILE_BREAKPOINT = 960;
@@ -166,110 +167,111 @@ export default function MovieHero({ params }) {
 
   return (
     <div className="background_container lg:pt-5 md:pt-5 ">
-      <div className="flex-container flex-wrap">
-        <div className="relative h-[222px] sm:h-[250px] md:h-[450px] lg:h-[819px] m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 overflow-hidden">
-          <div className="absolute inset-0 bg-gray-900 rounded-xl overflow-hidden">
-            <div className="relative w-full h-full bg-black opacity-40">
-              <div
-                className={`absolute inset-0 transition-opacity duration-1000 ${
-                  showTrailer ? "opacity-0" : "opacity-100"
-                }`}
-              >
-                <img
-                  className="w-full h-full object-cover rounded-xl "
-                  src={`https://image.tmdb.org/t/p/w1280${movieDetails.backdrop_path}`}
-                  alt={movieDetails.title}
-                />
-              </div>
+      <ScrollReveal>
+        <div className="flex-container flex-wrap">
+          <div className="relative h-[222px] sm:h-[250px] md:h-[450px] lg:h-[819px] m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 overflow-hidden">
+            <div className="absolute inset-0 bg-gray-900 rounded-xl overflow-hidden">
+              <div className="relative w-full h-full bg-black opacity-40">
+                <div
+                  className={`absolute inset-0 transition-opacity duration-1000 ${
+                    showTrailer ? "opacity-0" : "opacity-100"
+                  }`}
+                >
+                  <img
+                    className="w-full h-full object-cover rounded-xl "
+                    src={`https://image.tmdb.org/t/p/w1280${movieDetails.backdrop_path}`}
+                    alt={movieDetails.title}
+                  />
+                </div>
 
-              {trailer && showTrailer && (
-                <div className="absolute inset-0 w-full h-full ">
-                  <iframe
-                    className="absolute w-full h-full"
-                    src={`https://www.youtube.com/embed/${trailer}?autoplay=1&mute=1&loop=1&playlist=${trailer}&controls=0&rel=0&showinfo=0&modestbranding=1&iv_load_policy=3&playsinline=1&enablejsapi=1&origin=${
-                      typeof window !== "undefined"
-                        ? window.location.origin
-                        : ""
-                    }&vq=hd720`}
-                    title="Movie Trailer"
-                    allow="autoplay; encrypted-media"
-                    style={{
-                      position: "absolute",
-                      top: "50%",
-                      left: "50%",
-                      width: "100%",
-                      height: "100%",
-                      transform: "translate(-50%, -50%) scale(1.5)",
-                      objectFit: "cover",
+                {trailer && showTrailer && (
+                  <div className="absolute inset-0 w-full h-full ">
+                    <iframe
+                      className="absolute w-full h-full"
+                      src={`https://www.youtube.com/embed/${trailer}?autoplay=1&mute=1&loop=1&playlist=${trailer}&controls=0&rel=0&showinfo=0&modestbranding=1&iv_load_policy=3&playsinline=1&enablejsapi=1&origin=${
+                        typeof window !== "undefined"
+                          ? window.location.origin
+                          : ""
+                      }&vq=hd720`}
+                      title="Movie Trailer"
+                      allow="autoplay; encrypted-media"
+                      style={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        width: "100%",
+                        height: "100%",
+                        transform: "translate(-50%, -50%) scale(1.5)",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="relative z-20 h-full flex flex-col justify-end lg:py-64 py-4 md:py-32 px-4 md:px-8 max-w-7xl mx-auto">
+              {movieLogos[movieDetails.id] ? (
+                <div className="logo-container object-contain">
+                  <img
+                    src={movieLogos[movieDetails.id]}
+                    alt={`${movieDetails.title || movieDetails.name} logo`}
+                    className="h-12 lg:max-w-md lg:h-24 w-auto max-w-[150px] md:max-h-24 object-contain mb-2 md:mb-4"
+                    // style={{ filter: "drop-shadow(0 0 20px rgba(255, 255, 255, 0.5))" }}
+                    onError={(e) => {
+                      e.target.style.display = "none";
                     }}
                   />
                 </div>
+              ) : (
+                showTitle && (
+                  <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold text-white mb-2 tracking-wide">
+                    {movieDetails.title || movieDetails.name}
+                  </h1>
+                )
               )}
-            </div>
-          </div>
 
-          <div className="relative z-20 h-full flex flex-col justify-end lg:py-64 py-4 md:py-32 px-4 md:px-8 max-w-7xl mx-auto">
-            {movieLogos[movieDetails.id] ? (
-              <div className="logo-container object-contain">
-                <img
-                  src={movieLogos[movieDetails.id]}
-                  alt={`${movieDetails.title || movieDetails.name} logo`}
-                  className="h-12 lg:max-w-md lg:h-24 w-auto max-w-[150px] md:max-h-24 object-contain mb-2 md:mb-4"
-                  // style={{ filter: "drop-shadow(0 0 20px rgba(255, 255, 255, 0.5))" }}
-                  onError={(e) => {
-                    e.target.style.display = "none";
-                  }}
-                />
-              </div>
-            ) : (
-              showTitle && (
-                <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold text-white mb-2 tracking-wide">
-                  {movieDetails.title || movieDetails.name}
-                </h1>
-              )
-            )}
+              <div className="flex items-center gap-2 md:gap-4 mb-2 md:mb-4">
+                <span className="px-2 py-1 bg-gray-100/20 text-white text-xs md:text-sm rounded">
+                  {movieDetails.contentRating}
+                </span>
 
-            <div className="flex items-center gap-2 md:gap-4 mb-2 md:mb-4">
-              <span className="px-2 py-1 bg-gray-100/20 text-white text-xs md:text-sm rounded">
-                {movieDetails.contentRating}
-              </span>
+                <span className="text-gray-300 ml-1 text-xs md:text-sm flex items-center gap-2">
+                  <Star size={16} color="#f9fafb" />
+                  {movieDetails.voteAverage > 0
+                    ? ` ${movieDetails.voteAverage.toFixed(1)}`
+                    : "Not Rated"}
+                </span>
 
-              <span className="text-gray-300 ml-1 text-xs md:text-sm flex items-center gap-2">
-                <Star size={16} color="#f9fafb" />
-                {movieDetails.voteAverage > 0
-                  ? ` ${movieDetails.voteAverage.toFixed(1)}`
-                  : "Not Rated"}
-              </span>
+                {movieDetails.formattedRuntime && (
+                  <span className="text-gray-300 text-xs md:text-sm flex items-center gap-2">
+                    <AlarmClockCheck size={16} color="#f9fafb" />
+                    <span>{movieDetails.formattedRuntime}</span>
+                  </span>
+                )}
 
-              {movieDetails.formattedRuntime && (
                 <span className="text-gray-300 text-xs md:text-sm flex items-center gap-2">
-                  <AlarmClockCheck size={16} color="#f9fafb" />
-                  <span>{movieDetails.formattedRuntime}</span>
+                  <CalendarDays size={16} color="#f9fafb" />
+                  <span>{movieDetails.release_date?.slice(0, 4)}</span>
                 </span>
-              )}
+              </div>
 
-              <span className="text-gray-300 text-xs md:text-sm flex items-center gap-2">
-                <CalendarDays size={16} color="#f9fafb" />
-                <span>{movieDetails.release_date?.slice(0, 4)}</span>
-              </span>
-            </div>
+              <p className="text-gray-300 text-[9px] md:text-sm lg:text-base max-w-xl mb-4 md:mb-6">
+                {isMobile
+                  ? truncateTextByWords(movieDetails.overview, 3, 10)
+                  : movieDetails.overview}
+              </p>
 
-            <p className="text-gray-300 text-[9px] md:text-sm lg:text-base max-w-xl mb-4 md:mb-6">
-              {isMobile
-                ? truncateTextByWords(movieDetails.overview, 3, 10)
-                : movieDetails.overview}
-            </p>
+              <div className="text-gray-300 text-xs md:text-sm mb-4 md:mb-8">
+                {movieDetails.genres?.map((genre, index) => (
+                  <span key={genre.id}>
+                    {genre.name}
+                    {index < movieDetails.genres.length - 1 ? " • " : ""}
+                  </span>
+                ))}
+              </div>
 
-            <div className="text-gray-300 text-xs md:text-sm mb-4 md:mb-8">
-              {movieDetails.genres?.map((genre, index) => (
-                <span key={genre.id}>
-                  {genre.name}
-                  {index < movieDetails.genres.length - 1 ? " • " : ""}
-                </span>
-              ))}
-            </div>
-
-            {/* <div className="flex gap-2 md:gap-4">
+              {/* <div className="flex gap-2 md:gap-4">
               <Link href={`/movie/${movieDetails.id}`}>
                 <Button
                   variant="gradient"
@@ -291,21 +293,31 @@ export default function MovieHero({ params }) {
                 </Button>
               </Link>
             </div> */}
+            </div>
           </div>
         </div>
-      </div>
-      <OverviewMovie data={overviewData} directorName={directorName} />
-      <div className="h-[200px] md:h-[330px] lg:h-[819px] m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 mb-10">
-        <iframe
-          src={`https://embed.su/embed/movie/${movieDetails.id}`}
-          className="w-full h-full rounded-2xl shadow-xl"
-          frameBorder="0"
-          allowFullScreen
-          title="Movie Video"
-        />
-      </div>
-      <Cast cast={cast} />
-      <Footer />
+      </ScrollReveal>
+      <ScrollReveal>
+        <OverviewMovie data={overviewData} directorName={directorName} />
+      </ScrollReveal>
+      <ScrollReveal>
+        <Cast cast={cast} />
+      </ScrollReveal>
+      <ScrollReveal>
+        <div className="h-[200px] md:h-[330px] lg:h-[819px] m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 mb-10">
+          <iframe
+            src={`https://embed.su/embed/movie/${movieDetails.id}`}
+            className="w-full h-full rounded-2xl shadow-xl"
+            frameBorder="0"
+            allowFullScreen
+            title="Movie Video"
+          />
+        </div>
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <Footer />
+      </ScrollReveal>
     </div>
   );
 }

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import ScrollReveal from "../components/ScrollReveal";
 import {
   Navbar,
   Collapse,
@@ -91,15 +92,16 @@ export default function Header() {
           </Typography>
         </MenuHandler>
         <MenuList className="p-2 text-blue-gray-900 dark:text-gray-200 dark:bg-gray-900/30 bg-white/30 backdrop-blur-xl border-none rounded-lg shadow-lg">
-          <MenuItem>Popular</MenuItem>
           <MenuItem>
-            <a href="#">Now Playing</a>
+          <Link href="/popular-movies">Popular</Link></MenuItem>
+          <MenuItem>
+            <Link href="/now-playing">Now Playing</Link>
           </MenuItem>
           <MenuItem>
-            <a href="#">Upcoming</a>
+            <a href="/upcoming">Upcoming</a>
           </MenuItem>{" "}
           <MenuItem>
-            <Link href="/top-rated-Movies">Top Rated</Link>
+            <Link href="/top-rated-movies">Top Rated</Link>
           </MenuItem>
         </MenuList>
       </Menu>
@@ -199,7 +201,7 @@ export default function Header() {
         </MenuHandler>
         <MenuList className="p-2 text-blue-gray-900 dark:text-gray-200 dark:bg-gray-900/30 bg-white/30 backdrop-blur-xl border-none rounded-lg shadow-lg">
           <MenuItem>
-            <Link href="/top-rated-Movies">Movies</Link>
+            <Link href="/top-rated-movies">Movies</Link>
           </MenuItem>
 
           <MenuItem>
@@ -213,6 +215,7 @@ export default function Header() {
   );
 
   return (
+    <ScrollReveal>
     <Navbar className="mx-auto max-w-screen-xl px-4 py-2 lg:px-8 lg:py-4 bg-opacity-55 border-none dark:bg-gray-900/30 ">
       <div className="container mx-auto flex items-center justify-between dark:text-gray-200  text-blue-gray-900">
         <Link href="/#home">
@@ -389,5 +392,6 @@ export default function Header() {
         </div>
       </Collapse>
     </Navbar>
+    </ScrollReveal>
   );
 }

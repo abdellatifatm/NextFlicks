@@ -7,7 +7,7 @@ import MustWatch from "./MustWatch";
 import TopRatedTv from "./TopRatedTv";
 import TopRatedMovies from "./TopRatedMovies";
 import Networks from "./Networks";
-
+import ScrollReveal from "../components/ScrollReveal";
 
 const API_KEY = "84ef9a6a385dcf0d998c9d83dd821e47";
 const MOBILE_BREAKPOINT = 960;
@@ -190,112 +190,122 @@ const MoviesApi = () => {
 
   return (
     <>
-      <div
-        id="home"
-        className="background_container lg:pt-5 md:pt-5 scroll-m-28"
-      >
-        <div className="flex-container flex-wrap">
-          <div className="relative h-[300px] md:h-[450px] lg:h-[819px] m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 overflow-hidden">
-            <div className="absolute object-cover inset-0 bg-gray-900 rounded-xl">
-              <img
-                width="500"
-                className="w-full h-full object-cover rounded-xl bg-black opacity-40"
-                src={`https://image.tmdb.org/t/p/w1280/${randomMovie.backdrop_path}`}
-                alt={randomMovie.title || randomMovie.name}
-              />
-            </div>
+      <ScrollReveal>
+        <div
+          id="home"
+          className="background_container lg:pt-5 md:pt-5 scroll-m-28"
+        >
+          <div className="flex-container flex-wrap">
+            <div className="relative h-[300px] md:h-[450px] lg:h-[819px] m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 overflow-hidden">
+              <div className="absolute object-cover inset-0 bg-gray-900 rounded-xl">
+                <img
+                  width="500"
+                  className="w-full h-full object-cover rounded-xl bg-black opacity-40"
+                  src={`https://image.tmdb.org/t/p/w1280/${randomMovie.backdrop_path}`}
+                  alt={randomMovie.title || randomMovie.name}
+                />
+              </div>
 
-            <div className="relative z-20 h-full flex flex-col justify-end lg:py-64 pb-8 md:pb-16 px-4 md:px-8 max-w-7xl mx-auto">
-              {movieLogos[randomMovie.id] ? (
-                <div className="logo-container object-contain">
-                  <img
-                    src={movieLogos[randomMovie.id]}
-                    alt={`${randomMovie.title || randomMovie.name} logo`}
-                    // className="h-12 lg:max-w-md lg:h-24 w-auto max-w-[150px] md:max-h-24 object-contain mb-2 md:mb-4  "
-                    className="h-12 lg:max-w-md lg:h-24 w-auto max-w-[150px] md:max-h-24 object-contain mb-2 md:mb-4"
-                    // style={{ filter: "drop-shadow(0 0 10px rgba(255, 255, 255, 0.5))" }}
-                    onError={(e) => {
-                      e.target.style.display = "none";
-                    }}
-                  />
-                </div>
-              ) : (
-                showTitle && (
-                  <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold text-white mb-2 tracking-wide">
-                    {randomMovie.title || randomMovie.name}
-                  </h1>
-                )
-              )}
+              <div className="relative z-20 h-full flex flex-col justify-end lg:py-64 pb-8 md:pb-16 px-4 md:px-8 max-w-7xl mx-auto">
+                {movieLogos[randomMovie.id] ? (
+                  <div className="logo-container object-contain">
+                    <img
+                      src={movieLogos[randomMovie.id]}
+                      alt={`${randomMovie.title || randomMovie.name} logo`}
+                      // className="h-12 lg:max-w-md lg:h-24 w-auto max-w-[150px] md:max-h-24 object-contain mb-2 md:mb-4  "
+                      className="h-12 lg:max-w-md lg:h-24 w-auto max-w-[150px] md:max-h-24 object-contain mb-2 md:mb-4"
+                      // style={{ filter: "drop-shadow(0 0 10px rgba(255, 255, 255, 0.5))" }}
+                      onError={(e) => {
+                        e.target.style.display = "none";
+                      }}
+                    />
+                  </div>
+                ) : (
+                  showTitle && (
+                    <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold text-white mb-2 tracking-wide">
+                      {randomMovie.title || randomMovie.name}
+                    </h1>
+                  )
+                )}
 
-              <div className="flex items-center gap-2 md:gap-4 mb-2 md:mb-4">
-                <span className="px-2 py-1 bg-gray-100/20 text-white text-xs md:text-sm rounded">
-                  {randomMovie.contentRating}
-                </span>
-
-                <span className="text-gray-300 ml-1 text-xs md:text-sm flex items-center gap-2">
-                  <Star size={16} color="#f9fafb" />
-                  {randomMovie.voteAverage > 0
-                    ? ` ${randomMovie.voteAverage.toFixed(1)}`
-                    : "Not Rated"}
-                </span>
-
-                {randomMovie.media_type === "movie" &&
-                  randomMovie.formattedRuntime && (
-                    <span className="text-gray-300 text-xs md:text-sm flex items-center gap-2">
-                      <AlarmClockCheck size={16} color="#f9fafb" />
-                      <span>{randomMovie.formattedRuntime}</span>
-                    </span>
-                  )}
-
-                <span className="text-gray-300 text-xs md:text-sm flex items-center gap-2">
-                  <CalendarDays size={16} color="#f9fafb" />
-                  <span>
-                    {randomMovie.release_date?.slice(0, 4) ||
-                      randomMovie.first_air_date?.slice(0, 4)}
+                <div className="flex items-center gap-2 md:gap-4 mb-2 md:mb-4">
+                  <span className="px-2 py-1 bg-gray-100/20 text-white text-xs md:text-sm rounded">
+                    {randomMovie.contentRating}
                   </span>
-                </span>
-              </div>
 
-              <p className="text-gray-300 text-[9px] md:text-sm lg:text-base max-w-xl mb-4 md:mb-6">
-                {isMobile
-                  ? truncateTextByWords(randomMovie.overview, 3, 10)
-                  : truncateTextByWords(randomMovie.overview, 3, 30)}
-              </p>
+                  <span className="text-gray-300 ml-1 text-xs md:text-sm flex items-center gap-2">
+                    <Star size={16} color="#f9fafb" />
+                    {randomMovie.voteAverage > 0
+                      ? ` ${randomMovie.voteAverage.toFixed(1)}`
+                      : "Not Rated"}
+                  </span>
 
-              <div className="text-gray-400 text-xs md:text-sm mb-4 md:mb-8">
-                {getGenreNames(randomMovie.genre_ids)}
-              </div>
+                  {randomMovie.media_type === "movie" &&
+                    randomMovie.formattedRuntime && (
+                      <span className="text-gray-300 text-xs md:text-sm flex items-center gap-2">
+                        <AlarmClockCheck size={16} color="#f9fafb" />
+                        <span>{randomMovie.formattedRuntime}</span>
+                      </span>
+                    )}
 
-              <div className="flex gap-2 md:gap-4">
-                <Link href={getMediaLink(randomMovie)}>
-                  <Button
-                    variant="gradient"
-                    size="sm"
-                    className="flex items-center gap-2 px-4 md:px-8 py-2 md:py-3"
-                  >
-                    <Play size={20} />
-                    <span>Play</span>
-                  </Button>
-                </Link>
-                <Link href={getMediaLink(randomMovie)}>
-                  <Button
-                    variant="text"
-                    size="sm"
-                    className="flex items-center gap-2 px-4 md:px-8 py-2 md:py-3 bg-gray-600/50 text-white hover:bg-gray-600/70"
-                  >
-                    <Info size={20} />
-                    <span>Info</span>
-                  </Button>
-                </Link>
+                  <span className="text-gray-300 text-xs md:text-sm flex items-center gap-2">
+                    <CalendarDays size={16} color="#f9fafb" />
+                    <span>
+                      {randomMovie.release_date?.slice(0, 4) ||
+                        randomMovie.first_air_date?.slice(0, 4)}
+                    </span>
+                  </span>
+                </div>
+
+                <p className="text-gray-300 text-[9px] md:text-sm lg:text-base max-w-xl mb-4 md:mb-6">
+                  {isMobile
+                    ? truncateTextByWords(randomMovie.overview, 3, 10)
+                    : truncateTextByWords(randomMovie.overview, 3, 30)}
+                </p>
+
+                <div className="text-gray-400 text-xs md:text-sm mb-4 md:mb-8">
+                  {getGenreNames(randomMovie.genre_ids)}
+                </div>
+
+                <div className="flex gap-2 md:gap-4">
+                  <Link href={getMediaLink(randomMovie)}>
+                    <Button
+                      variant="gradient"
+                      size="sm"
+                      className="flex items-center gap-2 px-4 md:px-8 py-2 md:py-3"
+                    >
+                      <Play size={20} />
+                      <span>Play</span>
+                    </Button>
+                  </Link>
+                  <Link href={getMediaLink(randomMovie)}>
+                    <Button
+                      variant="text"
+                      size="sm"
+                      className="flex items-center gap-2 px-4 md:px-8 py-2 md:py-3 bg-gray-600/50 text-white hover:bg-gray-600/70"
+                    >
+                      <Info size={20} />
+                      <span>Info</span>
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <Networks />
-      <MustWatch movies={movieData} />
-      <TopRatedTv />
-      <TopRatedMovies />
+      </ScrollReveal>
+      <ScrollReveal>
+        <Networks />
+      </ScrollReveal>
+      <ScrollReveal>
+        <MustWatch movies={movieData} />
+      </ScrollReveal>
+      <ScrollReveal>
+        <TopRatedTv />
+      </ScrollReveal>
+      <ScrollReveal>
+        <TopRatedMovies />
+      </ScrollReveal>
     </>
   );
 };

@@ -7,11 +7,7 @@ import Link from "next/link";
 import Cast from "../../components/Cast";
 import { Footer } from "../../components/Footer";
 import OverviewTv from "../../components/OverviewTv";
-
-
-
-
-
+import ScrollReveal from "../../components/ScrollReveal";
 
 export default function Page({ params }) {
   const MOBILE_BREAKPOINT = 960;
@@ -71,9 +67,7 @@ export default function Page({ params }) {
           // );
 
           setCast(castResponse.data.cast);
-          setOverviewData(detailsResponse.data)
-          
-
+          setOverviewData(detailsResponse.data);
 
           // Get US rating or first available rating
           const contentRating =
@@ -139,8 +133,6 @@ export default function Page({ params }) {
     fetchTrailer();
   }, [id]);
 
-
-
   const getGenreNames = (genres) => {
     return genres
       .slice(0, 3) // Take only the first 3 genres
@@ -196,140 +188,145 @@ export default function Page({ params }) {
   if (!tvDetails) return null;
 
   return (
-
     <>
-    <div className="background_container lg:pt-5 md:pt-5">
-      <div className="flex-container flex-wrap">
-        <div className="relative h-[222px] sm:h-[250px] md:h-[450px] lg:h-[819px] m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 overflow-hidden">
-          <div className="absolute inset-0 bg-gray-900 rounded-xl overflow-hidden">
-            {tvDetails && (
-              <div className="relative w-full h-full bg-black opacity-40">
-                {/* Backdrop Image */}
-                <div
-                  className={`absolute inset-0 transition-opacity duration-1000 ${
-                    showTrailer ? "opacity-0" : "opacity-100"
-                  }`}
-                  style={{
-                    backgroundImage: `url(https://image.tmdb.org/t/p/w1280${tvDetails.backdrop_path})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                  }}
-                />
-
-                {/* YouTube Trailer */}
-                <div
-                  className={`relative w-full h-full pt-[56.25%] transition-opacity object-cover duration-1000 ${
-                    showTrailer ? "opacity-100" : "opacity-0"
-                  }`}
-                >
-                  {trailer && showTrailer && (
-                    <iframe
-                      className="absolute inset-0 w-full h-full object-cover"
-                      src={`https://www.youtube.com/embed/${trailer}?autoplay=1&mute=1&loop=1&playlist=${trailer}&controls=0&rel=0&showinfo=0&modestbranding=1&iv_load_policy=3&playsinline=1&enablejsapi=1&origin=${
-                        typeof window !== "undefined"
-                          ? window.location.origin
-                          : ""
-                      }&vq=hd720`}
-                      title="TV Show Trailer"
-                      allow="autoplay; encrypted-media"
+      <div className="background_container lg:pt-5 md:pt-5">
+        <ScrollReveal>
+          <div className="flex-container flex-wrap">
+            <div className="relative h-[222px] sm:h-[250px] md:h-[450px] lg:h-[819px] m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 overflow-hidden">
+              <div className="absolute inset-0 bg-gray-900 rounded-xl overflow-hidden">
+                {tvDetails && (
+                  <div className="relative w-full h-full bg-black opacity-40">
+                    {/* Backdrop Image */}
+                    <div
+                      className={`absolute inset-0 transition-opacity duration-1000 ${
+                        showTrailer ? "opacity-0" : "opacity-100"
+                      }`}
                       style={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        width: "100%",
-                        height: "100%",
-                        transform: "translate(-50%, -50%) scale(1.5)",
-                        objectFit: "cover",
+                        backgroundImage: `url(https://image.tmdb.org/t/p/w1280${tvDetails.backdrop_path})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
                       }}
                     />
+
+                    {/* YouTube Trailer */}
+                    <div
+                      className={`relative w-full h-full pt-[56.25%] transition-opacity object-cover duration-1000 ${
+                        showTrailer ? "opacity-100" : "opacity-0"
+                      }`}
+                    >
+                      {trailer && showTrailer && (
+                        <iframe
+                          className="absolute inset-0 w-full h-full object-cover"
+                          src={`https://www.youtube.com/embed/${trailer}?autoplay=1&mute=1&loop=1&playlist=${trailer}&controls=0&rel=0&showinfo=0&modestbranding=1&iv_load_policy=3&playsinline=1&enablejsapi=1&origin=${
+                            typeof window !== "undefined"
+                              ? window.location.origin
+                              : ""
+                          }&vq=hd720`}
+                          title="TV Show Trailer"
+                          allow="autoplay; encrypted-media"
+                          style={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            width: "100%",
+                            height: "100%",
+                            transform: "translate(-50%, -50%) scale(1.5)",
+                            objectFit: "cover",
+                          }}
+                        />
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="relative z-20 h-full flex flex-col justify-end lg:py-64 py-6 md:py-32 px-4 md:px-8 max-w-7xl mx-auto">
+                {tvLogos[tvDetails.id] ? (
+                  <div className="logo-container object-contain">
+                    <img
+                      src={tvLogos[tvDetails.id]}
+                      alt={`${tvDetails.title || tvDetails.name} logo`}
+                      className="h-12 lg:max-w-md lg:h-24 w-auto max-w-[150px] md:max-h-24 object-contain mb-2 md:mb-4"
+                      // style={{ filter: "drop-shadow(0 0 10px rgba(255, 255, 255, 0.5))" }}
+                      onError={(e) => {
+                        e.target.style.display = "none";
+                      }}
+                    />
+                  </div>
+                ) : (
+                  showTitle && (
+                    <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold text-white mb-2 tracking-wide">
+                      {tvDetails.title || tvDetails.name}
+                    </h1>
+                  )
+                )}
+                <div className="flex items-center gap-2 md:gap-4 mb-2 md:mb-4">
+                  {tvDetails.contentRating && (
+                    <span className="px-2 py-1 bg-gray-100/20 text-white text-xs md:text-sm rounded">
+                      {tvDetails.contentRating}
+                    </span>
                   )}
+
+                  <span className="text-gray-300 ml-1 text-xs md:text-sm flex items-center gap-2">
+                    <Star size={16} color="#f9fafb" />
+                    {tvDetails.voteAverage > 0
+                      ? ` ${tvDetails.voteAverage.toFixed(1)}`
+                      : "Not Rated"}
+                  </span>
+
+                  <span className="text-gray-300 text-xs md:text-sm flex items-center gap-2">
+                    <CalendarDays size={16} color="#f9fafb" />
+                    <span>
+                      {tvDetails.first_air_date?.slice(0, 4)}
+                      {tvDetails.status !== "Ended" && " - Present"}
+                    </span>
+                  </span>
+
+                  <span className="text-gray-300 text-xs md:text-sm px-2 py-1 bg-gray-100/20 rounded">
+                    {formatStatus(tvDetails.status)}
+                  </span>
                 </div>
-              </div>
-            )}
-          </div>
 
-          <div className="relative z-20 h-full flex flex-col justify-end lg:py-64 py-6 md:py-32 px-4 md:px-8 max-w-7xl mx-auto">
-            {tvLogos[tvDetails.id] ? (
-              <div className="logo-container object-contain">
-                <img
-                  src={tvLogos[tvDetails.id]}
-                  alt={`${tvDetails.title || tvDetails.name} logo`}
-                  className="h-12 lg:max-w-md lg:h-24 w-auto max-w-[150px] md:max-h-24 object-contain mb-2 md:mb-4"
-                  // style={{ filter: "drop-shadow(0 0 10px rgba(255, 255, 255, 0.5))" }}
-                  onError={(e) => {
-                    e.target.style.display = "none";
-                  }}
-                />
-              </div>
-            ) : (
-              showTitle && (
-                <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold text-white mb-2 tracking-wide">
-                  {tvDetails.title || tvDetails.name}
-                </h1>
-              )
-            )}
-            <div className="flex items-center gap-2 md:gap-4 mb-2 md:mb-4">
-              {tvDetails.contentRating && (
-                <span className="px-2 py-1 bg-gray-100/20 text-white text-xs md:text-sm rounded">
-                  {tvDetails.contentRating}
-                </span>
-              )}
-
-              <span className="text-gray-300 ml-1 text-xs md:text-sm flex items-center gap-2">
-                <Star size={16} color="#f9fafb" />
-                {tvDetails.voteAverage > 0
-                  ? ` ${tvDetails.voteAverage.toFixed(1)}`
-                  : "Not Rated"}
-              </span>
-
-              <span className="text-gray-300 text-xs md:text-sm flex items-center gap-2">
-                <CalendarDays size={16} color="#f9fafb" />
-                <span>
-                  {tvDetails.first_air_date?.slice(0, 4)}
-                  {tvDetails.status !== "Ended" && " - Present"}
-                </span>
-              </span>
-
-              <span className="text-gray-300 text-xs md:text-sm px-2 py-1 bg-gray-100/20 rounded">
-                {formatStatus(tvDetails.status)}
-              </span>
-            </div>
-
-            {/* <div className="text-gray-300 text-xs md:text-sm mb-2">
+                {/* <div className="text-gray-300 text-xs md:text-sm mb-2">
               {tvDetails.numberOfSeasons} Season{tvDetails.numberOfSeasons !== 1 ? 's' : ''} •{' '}
               {tvDetails.numberOfEpisodes} Episode{tvDetails.numberOfEpisodes !== 1 ? 's' : ''}
             </div> */}
 
+                <p className="text-gray-300 text-[9px] md:text-sm lg:text-base max-w-xl mb-4 md:mb-6">
+                  {isMobile
+                    ? truncateTextByWords(tvDetails.overview, 3, 10)
+                    : truncateTextByWords(tvDetails.overview, 3, 30)}
+                </p>
 
-            <p className="text-gray-300 text-[9px] md:text-sm lg:text-base max-w-xl mb-4 md:mb-6">
-              {isMobile
-                ? truncateTextByWords(tvDetails.overview, 3, 10)
-                : truncateTextByWords(tvDetails.overview, 3, 30)}
-            </p>
-
-            <div className="text-gray-400 text-xs md:text-sm mb-2">
-            {getGenreNames(tvDetails.genres || [])}
+                <div className="text-gray-400 text-xs md:text-sm mb-2">
+                  {getGenreNames(tvDetails.genres || [])}
+                </div>
+              </div>
             </div>
-
-           
           </div>
-        </div>
+        </ScrollReveal>
+        <ScrollReveal>
+          <OverviewTv data={overviewData} />
+        </ScrollReveal>
+         <ScrollReveal>
+          <Cast cast={cast} />
+        </ScrollReveal>
+        <ScrollReveal>
+          <div className="h-[200px] md:h-[330px] lg:h-[819px] m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 mb-10">
+            <iframe
+              src={`https://embed.su/embed/tv/${tvDetails.id}/1/1`}
+              className="w-full h-full rounded-2xl shadow-xl"
+              frameBorder="0"
+              allowFullScreen
+              title="Movie Video"
+            />
+          </div>
+        </ScrollReveal>
+       
+        <ScrollReveal>
+          <Footer />
+        </ScrollReveal>
       </div>
-      <OverviewTv data={overviewData}/>
-      <div className="h-[200px] md:h-[330px] lg:h-[819px] m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 mb-10">
-        <iframe
-          src={`https://embed.su/embed/tv/${tvDetails.id}/1/1`}
-          className="w-full h-full rounded-2xl shadow-xl"
-          frameBorder="0"
-          allowFullScreen
-          title="Movie Video"
-        />
-      </div>
-      <Cast cast={cast} />
-
-      <Footer />
-    </div>
-
     </>
   );
 }
