@@ -100,80 +100,83 @@ export default function MoviesPages() {
 
   return (
     <>
-    {movies.length > 0 && (
-      <ScrollReveal>
-        <div className="flex flex-col min-h-screen">
-          <div className="rounded-lg mx-4 sm:mx-8 lg:mx-16 pt-20 text-blue-gray-900 dark:text-gray-200">
-            <div className="text-2xl font-semibold md:text-3xl ml-2 mb-2 text-left flex items-center">
-              <h1>Popular Movies</h1>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-chevron-right md:w-[28px] md:h-[28px] w-6 h-6"
+      {movies.length > 0 && (
+        <ScrollReveal>
+          <div className="flex flex-col min-h-screen">
+            <div className="rounded-lg mx-4 sm:mx-8 lg:mx-16 pt-20 text-blue-gray-900 dark:text-gray-200">
+              <div className="text-2xl font-semibold md:text-3xl ml-2 mb-2 text-left flex items-center">
+                <h1>Popular Movies</h1>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-chevron-right md:w-[28px] md:h-[28px] w-6 h-6"
+                >
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
+              </div>
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-4">
+                {movies.map((movie) => (
+                  <div key={movie.id} className="movie-item relative group">
+                    <Link href={`/movie/${movie.id}`}>
+                      <div className="relative rounded-lg overflow-hidden">
+                        <img
+                          loading="lazy"
+                          src={
+                            movie.poster_path
+                              ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+                              : "/fallback-image.jpg"
+                          } // ✅ Handle missing posters
+                          alt={movie.title || "Movie Poster"}
+                          className="w-full aspect-[2/3] object-cover drop-shadow-lg transition-transform transform hover:drop-shadow-2xl hover:opacity-90 group-hover:scale-110"
+                        />
+                      </div>
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="flex items-center justify-center gap-2 sm:gap-4 mt-8 mb-4 px-4">
+              <Button
+                variant="text"
+                size="sm"
+                className="flex items-center gap-1 sm:gap-2 dark:text-white"
+                onClick={prev}
+                disabled={active === 1}
               >
-                <path d="m9 18 6-6-6-6" />
-              </svg>
-            </div>
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-4">
-              {movies.map((movie) => (
-                <div key={movie.id} className="movie-item relative group">
-                  <Link href={`/movie/${movie.id}`}>
-                    <div className="relative rounded-lg overflow-hidden">
-                      <img
-                        loading="lazy"
-                        src={
-                          movie.poster_path
-                            ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-                            : "/fallback-image.jpg"
-                        } // ✅ Handle missing posters
-                        alt={movie.title || "Movie Poster"}
-                        className="w-full aspect-[2/3] object-cover drop-shadow-lg transition-transform transform hover:drop-shadow-2xl hover:opacity-90 group-hover:scale-110"
-                      />
-                    </div>
-                  </Link>
-                </div>
-              ))}
+                <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" />
+                <span className="hidden sm:inline">Previous</span>
+              </Button>
+              <div className="flex items-center gap-1 sm:gap-2">
+                {renderPageButtons()}
+                <span className="md:hidden text-sm">
+                  Page {active} of {totalPages}
+                </span>
+              </div>
+              <Button
+                variant="text"
+                size="sm"
+                className="flex items-center gap-1 sm:gap-2 dark:text-white"
+                onClick={next}
+                disabled={active === totalPages}
+              >
+                <span className="hidden sm:inline">Next</span>
+                <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
+              </Button>
             </div>
           </div>
-          <div className="flex items-center justify-center gap-2 sm:gap-4 mt-8 mb-4 px-4">
-            <Button
-              variant="text"
-              size="sm"
-              className="flex items-center gap-1 sm:gap-2 dark:text-white"
-              onClick={prev}
-              disabled={active === 1}
-            >
-              <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" />
-              <span className="hidden sm:inline">Previous</span>
-            </Button>
-            <div className="flex items-center gap-1 sm:gap-2">
-              {renderPageButtons()}
-              <span className="md:hidden text-sm">
-                Page {active} of {totalPages}
-              </span>
-            </div>
-            <Button
-              variant="text"
-              size="sm"
-              className="flex items-center gap-1 sm:gap-2 dark:text-white"
-              onClick={next}
-              disabled={active === totalPages}
-            >
-              <span className="hidden sm:inline">Next</span>
-              <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
-      </ScrollReveal>
+        </ScrollReveal>
       )}
-      <ScrollReveal>
-        <Footer />
-      </ScrollReveal>
+
+      {movies.length > 0 && (
+        <ScrollReveal>
+          <Footer />
+        </ScrollReveal>
+      )}
     </>
   );
 }

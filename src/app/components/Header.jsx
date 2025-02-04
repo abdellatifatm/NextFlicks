@@ -14,6 +14,7 @@ import {
   MenuList,
   MenuItem,
 } from "@material-tailwind/react";
+import Logo from "./Logo";
 
 export default function Header() {
   const [openNav, setOpenNav] = useState(false);
@@ -220,7 +221,8 @@ export default function Header() {
       <div className="container mx-auto flex items-center justify-between dark:text-gray-200  text-blue-gray-900">
         <Link href="/#home">
           <Typography className="mr-4 cursor-pointer py-1.5 font-bold">
-            NextFlicks
+            {/* <img className="cursor-pointer w-24 text-blue-gray-900 dark:text-gray-200" src="NextFlicks Logo.svg" alt="" /> */}
+            <Logo />
           </Typography>
         </Link>
         <div className="hidden lg:block">{navList}</div>

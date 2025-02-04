@@ -7,7 +7,7 @@ const defaultAnimationVariants = {
   hidden: {
     opacity: 0,
     y: 30,
-    scale: 0.95,
+    scale: 0.98,  // Reduced scale for less jarring entry
   },
   visible: {
     opacity: 1,
@@ -15,10 +15,10 @@ const defaultAnimationVariants = {
     scale: 1,
     transition: {
       type: "spring",
-      stiffness: 80,    // Slightly lower for smoother motion
-      damping: 20,      // Balanced damping
-      mass: 0.5,        // Lower mass for lighter feel
-      duration: 0.7,    // Slightly longer duration
+      stiffness: 60,    // Lower stiffness for smoother motion
+      damping: 25,      // Higher damping for more control
+      mass: 0.6,        // Slightly lighter feel
+      duration: 0.8,    // Slightly longer for smoother effect
     },
   },
 };
@@ -28,7 +28,7 @@ export default function ScrollReveal({
   direction = "up",     // up, down, left, right
   delay = 0,           // Delay in seconds
   distance = 30,       // Travel distance in pixels
-  duration = 0.7,      // Animation duration in seconds
+  duration = 0.8,      // Animation duration in seconds
   threshold = 0.3,     // Viewport threshold
   once = true,         // Only animate once?
   stagger = 0,         // Stagger children animations
@@ -60,7 +60,7 @@ export default function ScrollReveal({
     return {
       hidden: {
         opacity: 0,
-        scale: 0.95,
+        scale: 0.98,  // Reduced scale
         ...directionValue,
       },
       visible: {
@@ -70,9 +70,9 @@ export default function ScrollReveal({
         y: 0,
         transition: {
           type: "spring",
-          stiffness: 80,
-          damping: 20,
-          mass: 0.5,
+          stiffness: 60,    // Lower stiffness
+          damping: 25,      // Higher damping
+          mass: 0.6,        // Slightly lighter feel
           duration: duration,
           delay: delay,
           staggerChildren: stagger,
