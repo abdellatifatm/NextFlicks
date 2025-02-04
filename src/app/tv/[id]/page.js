@@ -244,6 +244,7 @@ export default function Page({ params }) {
                 {tvLogos[tvDetails.id] ? (
                   <div className="logo-container object-contain">
                     <img
+                    loading="lazy" 
                       src={tvLogos[tvDetails.id]}
                       alt={`${tvDetails.title || tvDetails.name} logo`}
                       className="h-12 lg:max-w-md lg:h-24 w-auto max-w-[150px] md:max-h-24 object-contain mb-2 md:mb-4"

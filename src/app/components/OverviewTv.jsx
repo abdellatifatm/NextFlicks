@@ -13,6 +13,7 @@ const OverviewTv = ({ data }) => {
           src={`https://image.tmdb.org/t/p/w500/${data.poster_path}`} // Replace with your image path
           alt="Back in Action Poster"
           className="w-[280px] h-auto hidden lg:block rounded-lg"
+          loading="lazy" 
         />
       </div>
 

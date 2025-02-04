@@ -199,6 +199,7 @@ const MoviesApi = () => {
             <div className="relative h-[300px] md:h-[450px] lg:h-[819px] m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 overflow-hidden">
               <div className="absolute object-cover inset-0 bg-gray-900 rounded-xl">
                 <img
+                loading="lazy" 
                   width="500"
                   className="w-full h-full object-cover rounded-xl bg-black opacity-40"
                   src={`https://image.tmdb.org/t/p/w1280/${randomMovie.backdrop_path}`}
@@ -210,6 +211,7 @@ const MoviesApi = () => {
                 {movieLogos[randomMovie.id] ? (
                   <div className="logo-container object-contain">
                     <img
+                    loading="lazy" 
                       src={movieLogos[randomMovie.id]}
                       alt={`${randomMovie.title || randomMovie.name} logo`}
                       // className="h-12 lg:max-w-md lg:h-24 w-auto max-w-[150px] md:max-h-24 object-contain mb-2 md:mb-4  "

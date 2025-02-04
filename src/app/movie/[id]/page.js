@@ -178,6 +178,7 @@ export default function MovieHero({ params }) {
                   }`}
                 >
                   <img
+                  loading="lazy" 
                     className="w-full h-full object-cover rounded-xl "
                     src={`https://image.tmdb.org/t/p/w1280${movieDetails.backdrop_path}`}
                     alt={movieDetails.title}
@@ -214,6 +215,7 @@ export default function MovieHero({ params }) {
               {movieLogos[movieDetails.id] ? (
                 <div className="logo-container object-contain">
                   <img
+                  loading="lazy" 
                     src={movieLogos[movieDetails.id]}
                     alt={`${movieDetails.title || movieDetails.name} logo`}
                     className="h-12 lg:max-w-md lg:h-24 w-auto max-w-[150px] md:max-h-24 object-contain mb-2 md:mb-4"

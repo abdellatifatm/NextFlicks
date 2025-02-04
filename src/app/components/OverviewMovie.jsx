@@ -13,6 +13,7 @@ export default function OverviewMovie({ data, directorName }) {
           src={`https://image.tmdb.org/t/p/w500/${data.poster_path}`} // Replace with your image path
           alt={data.original_title || "Movie Poster"}
           className="w-[280px] h-auto hidden lg:block rounded-lg"
+          loading="lazy" 
         />
       </div>
 
