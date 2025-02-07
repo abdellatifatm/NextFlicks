@@ -159,6 +159,8 @@ export default function TopRatedMovies({ params }) {
     return buttons;
   };
 
+ 
+
   return (
     <>
       <div className="flex flex-col min-h-screen">
@@ -183,7 +185,7 @@ export default function TopRatedMovies({ params }) {
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-4">
               {movies.map((movie) => (
                 <div key={movie.id} className="movie-item relative group">
-                  <Link href={`/movie/${movie.id}`}>
+                  <Link href={`/movie/${movie.id}-${movie.title.toLowerCase().replace(/\s+/g, "-")}`}>
                     <div className="relative rounded-lg overflow-hidden">
                       <img
                         loading="lazy"
@@ -219,7 +221,7 @@ export default function TopRatedMovies({ params }) {
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-4">
               {tvShows.map((tv) => (
                 <div key={tv.id} className="movie-item relative group">
-                  <Link href={`/tv/${tv.id}`}>
+                  <Link href={`/tv/${tv.id}-${tv.name.toLowerCase().replace(/\s+/g, "-")}`}>
                     <div className="relative rounded-lg overflow-hidden">
                       <img
                         loading="lazy"

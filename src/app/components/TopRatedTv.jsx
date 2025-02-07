@@ -22,7 +22,8 @@ export default function TopRatedTv() {
   }, []);
 
   const getMediaLink = (item) => {
-    return `/tv/${item.id}`;
+    const formattedTitle = (item.title || item.name).toLowerCase().replace(/\s+/g, '-');
+    return `/tv/${item.id}-${formattedTitle}`;
   };
 
   return (

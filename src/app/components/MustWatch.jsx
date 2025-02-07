@@ -5,7 +5,8 @@ import Link from 'next/link';
 export default function MustWatch({ movies }) {
   const getMediaLink = (item) => {
     const baseUrl = item.media_type === "movie" ? "/movie" : "/tv";
-    return `${baseUrl}/${item.id}`;
+    const formattedTitle = (item.title || item.name).toLowerCase().replace(/\s+/g, '-');
+    return `${baseUrl}/${item.id}-${formattedTitle}`;
   };
 
   return (

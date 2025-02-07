@@ -183,7 +183,8 @@ const MoviesApi = () => {
 
   const getMediaLink = (item) => {
     const baseUrl = item.media_type === "movie" ? "/movie" : "/tv";
-    return `${baseUrl}/${item.id}`;
+    const formattedTitle = (item.title || item.name).toLowerCase().replace(/\s+/g, '-');
+    return `${baseUrl}/${item.id}-${formattedTitle}`;
   };
 
   if (!randomMovie) return null;

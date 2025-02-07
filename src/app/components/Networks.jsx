@@ -77,7 +77,7 @@ export default function Networks() {
               key={index} 
               className="flex justify-center"
             >
-            <Link href={`/network/${network.id}`}>
+            <Link href={`/network/${network.id}-${network.name.toLowerCase().replace(/\s+/g, '-')}`}>
               <span
                 className={`
                   w-full lg:max-w-72 lg:h-44 md:max-w-60 md:h-36 max-w-48 h-28 rounded-xl 

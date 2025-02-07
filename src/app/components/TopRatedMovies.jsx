@@ -22,7 +22,8 @@ export default function TopRatedMovies() {
   }, []);
 
   const getMediaLink = (item) => {
-    return `/movie/${item.id}`;
+    const formattedTitle = (item.title || item.name).toLowerCase().replace(/\s+/g, '-');
+    return `/movie/${item.id}-${formattedTitle}`;
   };
 
   return (

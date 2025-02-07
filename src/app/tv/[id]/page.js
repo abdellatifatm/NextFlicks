@@ -8,6 +8,7 @@ import Cast from "../../components/Cast";
 import { Footer } from "../../components/Footer";
 import OverviewTv from "../../components/OverviewTv";
 import ScrollReveal from "../../components/ScrollReveal";
+import { Alert } from "@material-tailwind/react";
 
 export default function Page({ params }) {
   const MOBILE_BREAKPOINT = 960;
@@ -26,6 +27,7 @@ export default function Page({ params }) {
   const [cast, setCast] = useState([]);
   const [overviewData, setOverviewData] = useState([]);
   // const [directorName, setDirectorName] = useState([]);
+  const [open, setOpen] = useState(true);
 
   useEffect(() => {
     setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
@@ -186,6 +188,22 @@ export default function Page({ params }) {
   }, [tvDetails]);
 
   if (!tvDetails) return null;
+  function Icon() {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="h-6 w-6"
+      >
+        <path
+          fillRule="evenodd"
+          d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z"
+          clipRule="evenodd"
+        />
+      </svg>
+    );
+  }
 
   return (
     <>
@@ -313,9 +331,45 @@ export default function Page({ params }) {
           <Cast cast={cast} />
         </ScrollReveal>
         <ScrollReveal>
+           <div className=" m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 text-sm font-bold  ">
+                    <Alert
+                      variant="filled"
+                      open={open}
+                      icon={<Icon />}
+                      className="mb-5 rounded-2xl w-full h-full  flex items-center"
+                      action={
+                        <Button
+                          variant="text"
+                          color="white"
+                          size="sm"
+                          className="!absolute right-3 "
+                          onClick={() => setOpen(false)}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2.75"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="lucide lucide-x h-6 w-6"
+                          >
+                            <path d="M18 6 6 18" />
+                            <path d="m6 6 12 12" />
+                          </svg>
+                        </Button>
+                      }
+                    >
+                      For a better experience, use an ad blocker (e.g., AdGuard, uBlock
+                      Origin).
+                    </Alert>
+                  </div>
           <div className="h-[200px] md:h-[330px] lg:h-[819px] m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 mb-10">
             <iframe
-              src={`https://embed.su/embed/tv/${tvDetails.id}/1/1`}
+              src={`https://vidsrc.xyz/embed/tv/${tvDetails.id}`}
               className="w-full h-full rounded-2xl shadow-xl"
               frameBorder="0"
               allowFullScreen

@@ -22,14 +22,16 @@ export default function Header() {
 
   useEffect(() => {
     // Check for saved dark mode preference or system preference
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem("theme");
+    const prefersDarkMode = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
 
-    if (savedTheme === 'dark' || (!savedTheme && prefersDarkMode)) {
+    if (savedTheme === "dark" || (!savedTheme && prefersDarkMode)) {
       setDarkMode(true);
-      document.documentElement.classList.add('dark');
+      document.documentElement.classList.add("dark");
     } else {
-      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.remove("dark");
     }
 
     // Resize event listener
@@ -48,13 +50,13 @@ export default function Header() {
   const toggleDarkMode = () => {
     const newMode = !darkMode;
     setDarkMode(newMode);
-    
+
     if (newMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
     } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
     }
   };
 
@@ -94,7 +96,8 @@ export default function Header() {
         </MenuHandler>
         <MenuList className="p-2 text-blue-gray-900 dark:text-gray-200 dark:bg-gray-900/30 bg-white/30 backdrop-blur-xl border-none rounded-lg shadow-lg">
           <MenuItem>
-          <Link href="/popular-movies">Popular</Link></MenuItem>
+            <Link href="/popular-movies">Popular</Link>
+          </MenuItem>
           <MenuItem>
             <Link href="/now-playing">Now Playing</Link>
           </MenuItem>
@@ -173,9 +176,35 @@ export default function Header() {
         <Link href="#trending" className="flex items-center">
           Trending
         </Link>
-      </Typography>
+      </Typography> <Link href="/search" className="flex items-center">
+      <Typography
+            as="li"
+            variant="small"
+            color="blue-gray"
+            className="flex items-center gap-x-2 p-1 font-medium cursor-pointer dark:text-gray-200 "
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="lucide lucide-star"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
 
-      <Menu>
+           
+              Search
+           
+          </Typography> </Link>
+
+      {/* <Menu>
         <MenuHandler>
           <Typography
             as="li"
@@ -195,9 +224,13 @@ export default function Header() {
               strokeLinejoin="round"
               className="lucide lucide-star"
             >
-              <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
             </svg>
-            <a className="flex items-center"> Top Rated</a>
+
+            <Link href="/search" className="flex items-center">
+              Search
+            </Link>
           </Typography>
         </MenuHandler>
         <MenuList className="p-2 text-blue-gray-900 dark:text-gray-200 dark:bg-gray-900/30 bg-white/30 backdrop-blur-xl border-none rounded-lg shadow-lg">
@@ -209,71 +242,69 @@ export default function Header() {
             <Link href="/top-rated-TV-Shows">Tv Shows</Link>
           </MenuItem>
         </MenuList>
-      </Menu>
-
-
+      </Menu> */}
     </ul>
   );
 
   return (
     <ScrollReveal>
-    <Navbar className="mx-auto max-w-screen-xl px-4 py-2 lg:px-8 lg:py-4 bg-opacity-55 border-none dark:bg-gray-900/30 ">
-      <div className="container mx-auto flex items-center justify-between dark:text-gray-200  text-blue-gray-900">
-        <Link href="/#home">
-          <Typography className="mr-4 cursor-pointer py-1.5 font-bold">
-            <Logo />
-          </Typography>
-        </Link>
-        <div className="hidden lg:block">{navList}</div>
-        <div className="flex items-center gap-x-2">
-          {/* Dark Mode Toggle */}
-          <button 
-            onClick={toggleDarkMode} 
-            className="p-2 rounded-full transition-colors  duration-300 lg:block md:hidden sm:hidden hidden"
-            aria-label="Toggle Dark Mode"
-          >
-            {darkMode ? (
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width="24" 
-                height="24" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                className="lucide lucide-sun"
-              >
-                <circle cx="12" cy="12" r="4" />
-                <path d="M12 2v2" />
-                <path d="M12 20v2" />
-                <path d="m4.93 4.93 1.41 1.41" />
-                <path d="m17.66 17.66 1.41 1.41" />
-                <path d="M2 12h2" />
-                <path d="M20 12h2" />
-                <path d="m6.34 17.66-1.41 1.41" />
-                <path d="m19.07 4.93-1.41 1.41" />
-              </svg>
-            ) : (
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width="24" 
-                height="24" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                className="lucide lucide-moon"
-              >
-                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-              </svg>
-            )}
-          </button>
+      <Navbar className="mx-auto max-w-screen-xl px-4 py-2 lg:px-8 lg:py-4 bg-opacity-55 border-none dark:bg-gray-900/30 ">
+        <div className="container mx-auto flex items-center justify-between dark:text-gray-200  text-blue-gray-900">
+          <Link href="/#home">
+            <Typography className="mr-4 cursor-pointer py-1.5 font-bold">
+              <Logo />
+            </Typography>
+          </Link>
+          <div className="hidden lg:block">{navList}</div>
+          <div className="flex items-center gap-x-2">
+            {/* Dark Mode Toggle */}
+            <button
+              onClick={toggleDarkMode}
+              className="p-2 rounded-full transition-colors  duration-300 lg:block md:hidden sm:hidden hidden"
+              aria-label="Toggle Dark Mode"
+            >
+              {darkMode ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-sun"
+                >
+                  <circle cx="12" cy="12" r="4" />
+                  <path d="M12 2v2" />
+                  <path d="M12 20v2" />
+                  <path d="m4.93 4.93 1.41 1.41" />
+                  <path d="m17.66 17.66 1.41 1.41" />
+                  <path d="M2 12h2" />
+                  <path d="M20 12h2" />
+                  <path d="m6.34 17.66-1.41 1.41" />
+                  <path d="m19.07 4.93-1.41 1.41" />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-moon"
+                >
+                  <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                </svg>
+              )}
+            </button>
 
-          {/* <Link href="/sign-in">
+            {/* <Link href="/sign-in">
             <Button variant="text" size="sm" className="hidden lg:inline-block dark:text-gray-200 ">
               <span>Sign In</span>
             </Button>
@@ -288,50 +319,50 @@ export default function Header() {
               <span>Sign up</span>
             </Button>
           </Link> */}
+          </div>
+          <IconButton
+            variant="text"
+            className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+            ripple={false}
+            onClick={() => setOpenNav(!openNav)}
+          >
+            {openNav ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                className="h-6 w-6"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            )}
+          </IconButton>
         </div>
-        <IconButton
-          variant="text"
-          className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
-          ripple={false}
-          onClick={() => setOpenNav(!openNav)}
-        >
-          {openNav ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              className="h-6 w-6"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          )}
-        </IconButton>
-      </div>
-      <Collapse open={openNav}>
-        <div className="container mx-auto">
-          {navList}
-          <div className="flex items-center gap-x-1">
-            {/* <Button fullWidth variant="text" size="sm" className="dark:text-gray-200">
+        <Collapse open={openNav}>
+          <div className="container mx-auto">
+            {navList}
+            <div className="flex items-center gap-x-1">
+              {/* <Button fullWidth variant="text" size="sm" className="dark:text-gray-200">
               <Link href="/sign-in">
                 <span>Sign In</span>
               </Link>
@@ -341,58 +372,58 @@ export default function Header() {
                 <span>Sign up</span>
               </Link>
             </Button> */}
-            {/* Dark Mode Toggle for Mobile */}
-            <div className="flex justify-center w-full mt-2">
-              <button 
-                onClick={toggleDarkMode} 
-                className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
-                aria-label="Toggle Dark Mode"
-              >
-                {darkMode ? (
-                  <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    width="24" 
-                    height="24" 
-                    viewBox="0 0 24 24" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    strokeWidth="2" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    className="lucide lucide-sun"
-                  >
-                    <circle cx="12" cy="12" r="4" />
-                    <path d="M12 2v2" />
-                    <path d="M12 20v2" />
-                    <path d="m4.93 4.93 1.41 1.41" />
-                    <path d="m17.66 17.66 1.41 1.41" />
-                    <path d="M2 12h2" />
-                    <path d="M20 12h2" />
-                    <path d="m6.34 17.66-1.41 1.41" />
-                    <path d="m19.07 4.93-1.41 1.41" />
-                  </svg>
-                ) : (
-                  <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    width="24" 
-                    height="24" 
-                    viewBox="0 0 24 24" 
-                    fill="none" 
-                    stroke="#263238" 
-                    strokeWidth="2" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    className="lucide lucide-moon"
-                  >
-                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-                  </svg>
-                )}
-              </button>
+              {/* Dark Mode Toggle for Mobile */}
+              <div className="flex justify-center w-full mt-2">
+                <button
+                  onClick={toggleDarkMode}
+                  className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
+                  aria-label="Toggle Dark Mode"
+                >
+                  {darkMode ? (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-sun"
+                    >
+                      <circle cx="12" cy="12" r="4" />
+                      <path d="M12 2v2" />
+                      <path d="M12 20v2" />
+                      <path d="m4.93 4.93 1.41 1.41" />
+                      <path d="m17.66 17.66 1.41 1.41" />
+                      <path d="M2 12h2" />
+                      <path d="M20 12h2" />
+                      <path d="m6.34 17.66-1.41 1.41" />
+                      <path d="m19.07 4.93-1.41 1.41" />
+                    </svg>
+                  ) : (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#263238"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-moon"
+                    >
+                      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                    </svg>
+                  )}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </Collapse>
-    </Navbar>
+        </Collapse>
+      </Navbar>
     </ScrollReveal>
   );
 }
