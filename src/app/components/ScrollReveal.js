@@ -1,40 +1,50 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useState, useEffect } from "react";
-
-const defaultAnimationVariants = {
-  hidden: {
-    opacity: 0,
-    y: 30,
-    scale: 0.98,  // Reduced scale for less jarring entry
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      type: "spring",
-      stiffness: 60,    // Lower stiffness for smoother motion
-      damping: 25,      // Higher damping for more control
-      mass: 0.6,        // Slightly lighter feel
-      duration: 0.8,    // Slightly longer for smoother effect
-    },
-  },
-};
 
 export default function ScrollReveal({
   children,
-  direction = "up",     // up, down, left, right
-  delay = 0,           // Delay in seconds
-  distance = 30,       // Travel distance in pixels
-  duration = 0.8,      // Animation duration in seconds
-  threshold = 0.3,     // Viewport threshold
-  once = true,         // Only animate once?
-  stagger = 0,         // Stagger children animations
-  className = "",      // Additional CSS classes
+  direction = "up",
+  delay = 0,
+  distance = 30,
+  duration = 0.8,
+  threshold = 0.3,
+  once = true,
+  stagger = 0,
+  className = "",
 }) {
   const [shouldReduceMotion, setShouldReduceMotion] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+  
+  // Create motion values for better performance
+  const progress = useMotionValue(0);
+  const smoothProgress = useSpring(progress, {
+    stiffness: 60,
+    damping: 25,
+    mass: 0.6,
+    duration: duration * 1000
+  });
+
+  // Transform progress into actual animation values
+  const opacity = useTransform(smoothProgress, [0, 1], [0, 1]);
+  const scale = useTransform(smoothProgress, [0, 1], [0.98, 1]);
+  
+  // Direction-based transforms
+  const getDirectionalTransform = () => {
+    const transforms = {
+      up: useTransform(smoothProgress, [0, 1], [distance, 0]),
+      down: useTransform(smoothProgress, [0, 1], [-distance, 0]),
+      left: useTransform(smoothProgress, [0, 1], [-distance, 0]),
+      right: useTransform(smoothProgress, [0, 1], [distance, 0])
+    };
+
+    return direction === "left" || direction === "right"
+      ? { x: transforms[direction] }
+      : { y: transforms[direction] };
+  };
+
+  const directionalTransform = getDirectionalTransform();
 
   // Check for reduced motion preference
   useEffect(() => {
@@ -46,40 +56,14 @@ export default function ScrollReveal({
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
-  // Define direction-based variants
-  const getDirectionalVariants = () => {
-    const directions = {
-      up: { y: distance },
-      down: { y: -distance },
-      left: { x: -distance },
-      right: { x: distance },
-    };
-
-    const directionValue = directions[direction] || directions.up;
-
-    return {
-      hidden: {
-        opacity: 0,
-        scale: 0.98,  // Reduced scale
-        ...directionValue,
-      },
-      visible: {
-        opacity: 1,
-        scale: 1,
-        x: 0,
-        y: 0,
-        transition: {
-          type: "spring",
-          stiffness: 60,    // Lower stiffness
-          damping: 25,      // Higher damping
-          mass: 0.6,        // Slightly lighter feel
-          duration: duration,
-          delay: delay,
-          staggerChildren: stagger,
-        },
-      },
-    };
-  };
+  // Update progress when in view
+  useEffect(() => {
+    if (isInView) {
+      progress.set(1, { delay: delay * 1000 });
+    } else if (!once) {
+      progress.set(0);
+    }
+  }, [isInView, delay, once, progress]);
 
   // If user prefers reduced motion, render without animation
   if (shouldReduceMotion) {
@@ -88,11 +72,17 @@ export default function ScrollReveal({
 
   return (
     <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: once, amount: threshold }}
-      variants={getDirectionalVariants()}
       className={className}
+      style={{
+        opacity,
+        scale,
+        ...directionalTransform,
+        willChange: "transform",
+        backfaceVisibility: "hidden"
+      }}
+      onViewportEnter={() => setIsInView(true)}
+      onViewportLeave={() => !once && setIsInView(false)}
+      viewport={{ amount: threshold }}
     >
       {children}
     </motion.div>

@@ -28,8 +28,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-[#171717] transition-colors duration-300`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white  dark:bg-[#171717] transition-colors duration-300`}
       >
 
         <div className="pt-4 px-4 sticky top-4 z-50">
