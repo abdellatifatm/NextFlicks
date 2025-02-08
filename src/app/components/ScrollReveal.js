@@ -31,20 +31,17 @@ export default function ScrollReveal({
   const scale = useTransform(smoothProgress, [0, 1], [0.98, 1]);
   
   // Direction-based transforms
-  const getDirectionalTransform = () => {
-    const transforms = {
-      up: useTransform(smoothProgress, [0, 1], [distance, 0]),
-      down: useTransform(smoothProgress, [0, 1], [-distance, 0]),
-      left: useTransform(smoothProgress, [0, 1], [-distance, 0]),
-      right: useTransform(smoothProgress, [0, 1], [distance, 0])
-    };
-
-    return direction === "left" || direction === "right"
-      ? { x: transforms[direction] }
-      : { y: transforms[direction] };
-  };
-
-  const directionalTransform = getDirectionalTransform();
+  const transformX = useTransform(
+    smoothProgress,
+    [0, 1],
+    direction === "left" ? [-distance, 0] : direction === "right" ? [distance, 0] : [0, 0]
+  );
+  
+  const transformY = useTransform(
+    smoothProgress,
+    [0, 1],
+    direction === "up" ? [distance, 0] : direction === "down" ? [-distance, 0] : [0, 0]
+  );
 
   // Check for reduced motion preference
   useEffect(() => {
@@ -76,7 +73,8 @@ export default function ScrollReveal({
       style={{
         opacity,
         scale,
-        ...directionalTransform,
+        x: transformX,
+        y: transformY,
         willChange: "transform",
         backfaceVisibility: "hidden"
       }}
