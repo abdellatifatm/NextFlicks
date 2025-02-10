@@ -8,6 +8,7 @@ import TopRatedTv from "./TopRatedTv";
 import TopRatedMovies from "./TopRatedMovies";
 import Networks from "./Networks";
 import ScrollReveal from "../components/ScrollReveal";
+import { Footer } from "./Footer";
 
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 const MOBILE_BREAKPOINT = 960;
@@ -235,44 +236,44 @@ const MoviesApi = () => {
                   )}
                 </ScrollReveal>
                 {/* <ScrollReveal> */}
-                  <div className="flex items-center gap-2 md:gap-4 mb-2 md:mb-4">
-                    <span className="px-2 py-1 bg-gray-100/20 text-white text-xs md:text-sm rounded">
-                      {randomMovie.contentRating}
-                    </span>
+                <div className="flex items-center gap-2 md:gap-4 mb-2 md:mb-4">
+                  <span className="px-2 py-1 bg-gray-100/20 text-white text-xs md:text-sm rounded">
+                    {randomMovie.contentRating}
+                  </span>
 
-                    <span className="text-gray-300 ml-1 text-xs md:text-sm flex items-center gap-2">
-                      <Star size={16} color="#f9fafb" />
-                      {randomMovie.voteAverage > 0
-                        ? ` ${randomMovie.voteAverage.toFixed(1)}`
-                        : "Not Rated"}
-                    </span>
+                  <span className="text-gray-300 ml-1 text-xs md:text-sm flex items-center gap-2">
+                    <Star size={16} color="#f9fafb" />
+                    {randomMovie.voteAverage > 0
+                      ? ` ${randomMovie.voteAverage.toFixed(1)}`
+                      : "Not Rated"}
+                  </span>
 
-                    {randomMovie.media_type === "movie" &&
-                      randomMovie.formattedRuntime && (
-                        <span className="text-gray-300 text-xs md:text-sm flex items-center gap-2">
-                          <AlarmClockCheck size={16} color="#f9fafb" />
-                          <span>{randomMovie.formattedRuntime}</span>
-                        </span>
-                      )}
-
-                    <span className="text-gray-300 text-xs md:text-sm flex items-center gap-2">
-                      <CalendarDays size={16} color="#f9fafb" />
-                      <span>
-                        {randomMovie.release_date?.slice(0, 4) ||
-                          randomMovie.first_air_date?.slice(0, 4)}
+                  {randomMovie.media_type === "movie" &&
+                    randomMovie.formattedRuntime && (
+                      <span className="text-gray-300 text-xs md:text-sm flex items-center gap-2">
+                        <AlarmClockCheck size={16} color="#f9fafb" />
+                        <span>{randomMovie.formattedRuntime}</span>
                       </span>
+                    )}
+
+                  <span className="text-gray-300 text-xs md:text-sm flex items-center gap-2">
+                    <CalendarDays size={16} color="#f9fafb" />
+                    <span>
+                      {randomMovie.release_date?.slice(0, 4) ||
+                        randomMovie.first_air_date?.slice(0, 4)}
                     </span>
-                  </div>
+                  </span>
+                </div>
 
-                  <p className="text-gray-300 text-[9px] md:text-sm lg:text-base max-w-xl mb-4 md:mb-6">
-                    {isMobile
-                      ? truncateTextByWords(randomMovie.overview, 3, 10)
-                      : truncateTextByWords(randomMovie.overview, 3, 30)}
-                  </p>
+                <p className="text-gray-300 text-[9px] md:text-sm lg:text-base max-w-xl mb-4 md:mb-6">
+                  {isMobile
+                    ? truncateTextByWords(randomMovie.overview, 3, 10)
+                    : truncateTextByWords(randomMovie.overview, 3, 30)}
+                </p>
 
-                  <div className="text-gray-400 text-xs md:text-sm mb-4 md:mb-8">
-                    {getGenreNames(randomMovie.genre_ids)}
-                  </div>
+                <div className="text-gray-400 text-xs md:text-sm mb-4 md:mb-8">
+                  {getGenreNames(randomMovie.genre_ids)}
+                </div>
                 {/* </ScrollReveal> */}
                 <ScrollReveal>
                   <div className="flex gap-2 md:gap-4">
@@ -316,6 +317,8 @@ const MoviesApi = () => {
       <ScrollReveal>
         <TopRatedMovies />
       </ScrollReveal>
+
+      <Footer />
     </>
   );
 };

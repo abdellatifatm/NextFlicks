@@ -16,7 +16,7 @@ export default function Home() {
       <div className="flex-grow">
         <MoviesApi />
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
     // </motion.div>
   );

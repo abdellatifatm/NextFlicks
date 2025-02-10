@@ -11,50 +11,42 @@ import ScrollReveal from "../../components/ScrollReveal";
 const networks = [
   {
     name: "Netflix",
-    banner:
-      "https://wallpapers.com/images/hd/netflix-background-gs7hjuwvv2g0e9fj.jpg",
+    banner: "/netflix banner.jpg",
     id: 8,
   },
   {
     name: "Apple TV+",
-    banner:
-      "https://cdn1.filmozercy.com/uploads/images/original/apple-tv-seriale-2023.jpg",
+    banner: "/appleTv+ banner.jpg",
     id: 350,
   },
   {
     name: "Disney+",
-    banner:
-      "https://suomimobiili.fi/wp-content/uploads/2023/11/disney-plus.jpg",
+    banner: "/disney+ banner.jpg",
     id: 337,
   },
   {
     name: "Max",
-    banner:
-      "https://scontent.frba3-2.fna.fbcdn.net/v/t39.30808-6/384998944_706731491499334_9129873369067753023_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=127cfc&_nc_ohc=ONm5kj2dDkwQ7kNvgHZyM8u&_nc_oc=AdhkVd9EXG-NhGcy_K9DFQMMT2di2GAqo--8Q21lT4BHHfDh88lL5_nY2stqftBx-9E&_nc_zt=23&_nc_ht=scontent.frba3-2.fna&_nc_gid=AL2i8GJohkSJ9Ny9b_iaNH9&oh=00_AYATuvMFz7w7nGTMrfmHng-lDEVgu5NEa5aJsBLmIu91Qg&oe=67ADE7BD",
+    banner: "/max banner.jpg",
     id: 1899,
   },
   {
     name: "Prime Video",
-    banner:
-      "https://vodafoneziggo.scene7.com/is/image/vodafoneziggo/article_1920x1080_primevideo?fmt=webp-alpha&qlt=100,0&bfc=off&wid=1128&fit=constrain",
+    banner: "/prime video banner.webp",
     id: 9,
   },
   {
     name: "Hulu",
-    banner:
-      "https://www.etonline.com/sites/default/files/images/2023-09/hulu_0.jpeg",
+    banner: "/hulu banner.webp",
     id: 15,
   },
   {
     name: "Paramount+",
-    banner:
-      "https://www.4kfilme.de/wp-content/uploads/2025/01/paramount-plus-vorbereitungen-werbung-neue-abo-tarife.jpg",
+    banner: "/paramount+ banner.jpg",
     id: 531,
   },
   {
     name: "Crunchyroll",
-    banner:
-      "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgAl-HcMWLNSynuHjcuP8LcDMkC_uEb80-WE4mHpMDEaxAK0tuKTaS5a5skREFF16gNGSShxgHE9uq49mK9T6WohA7AmHIsFF5liyasc0a5PTcWslBA_dLjw0V0tE2USLVfgaFlrB9xPKcoo3CBpIoWqkqKJ13VdTBQMb6uiLtDw2EC90RTGlHcCBiuYbc/s1920/IMG_20240119_091240.jpg",
+    banner: "/crunchyroll banner.jpg",
     id: 283,
   },
 ];
