@@ -1,7 +1,7 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Link from 'next/link';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Link from "next/link";
 
 export default function TopRatedMovies() {
   const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
@@ -13,7 +13,7 @@ export default function TopRatedMovies() {
         const detailsResponse = await axios.get(
           `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}`
         );
-        setTopMovies(detailsResponse.data.results.slice(0,18));
+        setTopMovies(detailsResponse.data.results.slice(0, 18));
       } catch (error) {
         console.error("Error fetching Movie details:", error);
       }
@@ -22,7 +22,9 @@ export default function TopRatedMovies() {
   }, []);
 
   const getMediaLink = (item) => {
-    const formattedTitle = (item.title || item.name).toLowerCase().replace(/\s+/g, '-');
+    const formattedTitle = (item.title || item.name)
+      .toLowerCase()
+      .replace(/\s+/g, "-");
     return `/movie/${item.id}-${formattedTitle}`;
   };
 
@@ -51,7 +53,7 @@ export default function TopRatedMovies() {
                 <img
                   loading="lazy"
                   src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                  alt={movie.title || 'Movie Poster'}
+                  alt={movie.title || "Movie Poster"}
                   className="w-full aspect-[2/3] object-cover drop-shadow-lg transition-transform transform hover:drop-shadow-2xl hover:opacity-90 group-hover:scale-110"
                 />
               </div>
