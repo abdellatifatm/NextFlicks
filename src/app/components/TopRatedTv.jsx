@@ -4,7 +4,7 @@ import axios from 'axios';
 import Link from 'next/link';
 
 export default function TopRatedTv() {
-  const API_KEY = "84ef9a6a385dcf0d998c9d83dd821e47";
+  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
   const [topTvShows, setTopTvShows] = useState([]);
 
   useEffect(() => {

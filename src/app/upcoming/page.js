@@ -8,7 +8,7 @@ import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 import ScrollReveal from "../components/ScrollReveal";
 
 export default function MoviesPages() {
-  const API_KEY = "84ef9a6a385dcf0d998c9d83dd821e47"; // ✅ Use env variable
+  const API_KEY = process.env.NEXT_PUBLIC_API_KEY; // ✅ Use env variable
   const [movies, setMovies] = useState([]);
   const [active, setActive] = useState(1);
   const [totalPages, setTotalPages] = useState(1);

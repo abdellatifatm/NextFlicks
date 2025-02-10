@@ -18,13 +18,13 @@ const networks = [
   {
     name: "Apple TV+",
     banner:
-      "	https://d1ize34iqy408p.cloudfront.net/images/apple_tv.width-2560.webp",
+      "https://cdn1.filmozercy.com/uploads/images/original/apple-tv-seriale-2023.jpg",
     id: 350,
   },
   {
     name: "Disney+",
     banner:
-      "https://www.micechat.com/wp-content/uploads/2020/05/Disney-Plus-Banner-Generic.jpg",
+      "https://suomimobiili.fi/wp-content/uploads/2023/11/disney-plus.jpg",
     id: 337,
   },
   {
@@ -42,24 +42,25 @@ const networks = [
   {
     name: "Hulu",
     banner:
-      "https://www.etonline.com/sites/default/files/styles/1280x720/public/images/2023-09/hulu_0.jpeg?h=2bdd4841",
+      "https://www.etonline.com/sites/default/files/images/2023-09/hulu_0.jpeg",
     id: 15,
   },
   {
     name: "Paramount+",
-    banner: "https://cdn.mos.cms.futurecdn.net/67iTm5B6YwWuP3GvAh63fm-1200-80.jpg",
+    banner:
+      "https://www.4kfilme.de/wp-content/uploads/2025/01/paramount-plus-vorbereitungen-werbung-neue-abo-tarife.jpg",
     id: 531,
   },
   {
     name: "Crunchyroll",
     banner:
-      "https://assets.aboutamazon.com/f8/2a/e21459814491b9aac0134bfffaf8/cr-1920x1080.jpg",
+      "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgAl-HcMWLNSynuHjcuP8LcDMkC_uEb80-WE4mHpMDEaxAK0tuKTaS5a5skREFF16gNGSShxgHE9uq49mK9T6WohA7AmHIsFF5liyasc0a5PTcWslBA_dLjw0V0tE2USLVfgaFlrB9xPKcoo3CBpIoWqkqKJ13VdTBQMb6uiLtDw2EC90RTGlHcCBiuYbc/s1920/IMG_20240119_091240.jpg",
     id: 283,
   },
 ];
 
 export default function TopRatedMovies({ params }) {
-  const API_KEY = "84ef9a6a385dcf0d998c9d83dd821e47";
+  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
   const [movies, setMovies] = useState([]);
   const [tvShows, setTvShows] = useState([]);
   const [active, setActive] = useState(1);
@@ -176,133 +177,140 @@ export default function TopRatedMovies({ params }) {
 
   return (
     <>
-      <div className="flex flex-col min-h-screen lg:pt-5 md:pt-5">
-        <div className="relative h-[300px] md:h-[450px] lg:h-[906px] m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 overflow-hidden">
-          <div className="absolute object-cover inset-0 bg-gray-900 rounded-xl">
-            <img
-              loading="lazy"
-              width="500"
-              className="w-full h-full object-cover rounded-xl "
-              src={networks.find((network) => network.id === networkId)?.banner}
-              alt="Network banner"
-            />
+      <div className="lg:pt-5 md:pt-5">
+        <div className="flex-container flex-wrap">
+          <div className="relative h-[300px] md:h-[450px] lg:h-[906px] m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 overflow-hidden  ">
+            <div className="absolute object-cover inset-0 rounded-xl ">
+              <ScrollReveal>
+                <img
+                  loading="lazy"
+                  width="500"
+                  className="w-full  object-cover h-[300px] md:h-[450px] lg:h-[906px]  rounded-xl "
+                  src={
+                    networks.find((network) => network.id === networkId)?.banner
+                  }
+                  alt="Network banner"
+                />
+              </ScrollReveal>
+            </div>
           </div>
-        </div>
-        <div className="rounded-lg mx-4 sm:mx-8 lg:mx-16 pt-10 text-blue-gray-900 dark:text-gray-200">
-          {movies.length > 0 && (
-            <ScrollReveal>
-              <div className="text-2xl font-semibold md:text-3xl ml-2 mb-2 text-left flex items-center">
-                <h1>{networkName} Popular Movies</h1>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-chevron-right md:w-[28px] md:h-[28px] w-6 h-6"
-                >
-                  <path d="m9 18 6-6-6-6" />
-                </svg>
-              </div>
-              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-4">
-                {movies.map((movie) => (
-                  <div key={movie.id} className="movie-item relative group">
-                    <Link
-                      href={`/movie/${movie.id}-${movie.title
-                        .toLowerCase()
-                        .replace(/\s+/g, "-")}`}
-                    >
-                      <div className="relative rounded-lg overflow-hidden">
-                        <img
-                          loading="lazy"
-                          src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                          alt={movie.title || "Movie Poster"}
-                          className="w-full aspect-[2/3] object-cover drop-shadow-lg transition-transform transform hover:drop-shadow-2xl hover:opacity-90 group-hover:scale-110"
-                        />
-                      </div>
-                    </Link>
-                  </div>
-                ))}
-              </div>
-            </ScrollReveal>
-          )}
+
+          <div className="rounded-lg mx-4 sm:mx-8 lg:mx-16 mt-10  text-blue-gray-900 dark:text-gray-200">
+            {movies.length > 0 && (
+              <ScrollReveal>
+                <div className="text-2xl font-semibold md:text-3xl ml-2 mb-2 text-left flex items-center">
+                  <h1>{networkName} Popular Movies</h1>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-chevron-right md:w-[28px] md:h-[28px] w-6 h-6"
+                  >
+                    <path d="m9 18 6-6-6-6" />
+                  </svg>
+                </div>
+                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-4">
+                  {movies.map((movie) => (
+                    <div key={movie.id} className="movie-item relative group">
+                      <Link
+                        href={`/movie/${movie.id}-${movie.title
+                          .toLowerCase()
+                          .replace(/\s+/g, "-")}`}
+                      >
+                        <div className="relative rounded-lg overflow-hidden">
+                          <img
+                            loading="lazy"
+                            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                            alt={movie.title || "Movie Poster"}
+                            className="w-full aspect-[2/3] object-cover drop-shadow-lg transition-transform transform hover:drop-shadow-2xl hover:opacity-90 group-hover:scale-110"
+                          />
+                        </div>
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              </ScrollReveal>
+            )}
+
+            {tvShows.length > 0 && (
+              <ScrollReveal>
+                <div className="text-2xl font-semibold md:text-3xl ml-2 mt-10 mb-2 text-left flex items-center">
+                  <h1>{networkName} Popular TV Shows</h1>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-chevron-right md:w-[28px] md:h-[28px] w-6 h-6"
+                  >
+                    <path d="m9 18 6-6-6-6" />
+                  </svg>
+                </div>
+                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-4">
+                  {tvShows.map((tv) => (
+                    <div key={tv.id} className="movie-item relative group">
+                      <Link
+                        href={`/tv/${tv.id}-${tv.name
+                          .toLowerCase()
+                          .replace(/\s+/g, "-")}`}
+                      >
+                        <div className="relative rounded-lg overflow-hidden">
+                          <img
+                            loading="lazy"
+                            src={`https://image.tmdb.org/t/p/w500/${tv.poster_path}`}
+                            alt={tv.name || "TV Show Poster"}
+                            className="w-full aspect-[2/3] object-cover drop-shadow-lg transition-transform transform hover:drop-shadow-2xl hover:opacity-90 group-hover:scale-110"
+                          />
+                        </div>
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              </ScrollReveal>
+            )}
+          </div>
 
           {tvShows.length > 0 && (
             <ScrollReveal>
-              <div className="text-2xl font-semibold md:text-3xl ml-2 mt-10 mb-2 text-left flex items-center">
-                <h1>{networkName} Popular TV Shows</h1>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-chevron-right md:w-[28px] md:h-[28px] w-6 h-6"
+              <div className="flex items-center justify-center gap-2 sm:gap-4 mt-8 mb-4 px-4">
+                <Button
+                  variant="text"
+                  size="sm"
+                  className="flex items-center gap-1 sm:gap-2 dark:text-white"
+                  onClick={prev}
+                  disabled={active === 1}
                 >
-                  <path d="m9 18 6-6-6-6" />
-                </svg>
-              </div>
-              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-4">
-                {tvShows.map((tv) => (
-                  <div key={tv.id} className="movie-item relative group">
-                    <Link
-                      href={`/tv/${tv.id}-${tv.name
-                        .toLowerCase()
-                        .replace(/\s+/g, "-")}`}
-                    >
-                      <div className="relative rounded-lg overflow-hidden">
-                        <img
-                          loading="lazy"
-                          src={`https://image.tmdb.org/t/p/w500/${tv.poster_path}`}
-                          alt={tv.name || "TV Show Poster"}
-                          className="w-full aspect-[2/3] object-cover drop-shadow-lg transition-transform transform hover:drop-shadow-2xl hover:opacity-90 group-hover:scale-110"
-                        />
-                      </div>
-                    </Link>
-                  </div>
-                ))}
+                  <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" />
+                  <span className="hidden sm:inline">Previous</span>
+                </Button>
+                <div className="flex items-center gap-1 sm:gap-2">
+                  {renderPageButtons()}
+                  {/* Mobile page indicator */}
+                  <span className="md:hidden text-sm">
+                    Page {active} of {totalPages}
+                  </span>
+                </div>
+                <Button
+                  variant="text"
+                  size="sm"
+                  className="flex items-center gap-1 sm:gap-2 dark:text-white"
+                  onClick={next}
+                  disabled={active === totalPages}
+                >
+                  <span className="hidden sm:inline">Next</span>
+                  <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
+                </Button>
               </div>
             </ScrollReveal>
           )}
         </div>
-
-        {tvShows.length > 0 && (
-          <ScrollReveal>
-            <div className="flex items-center justify-center gap-2 sm:gap-4 mt-8 mb-4 px-4">
-              <Button
-                variant="text"
-                size="sm"
-                className="flex items-center gap-1 sm:gap-2 dark:text-white"
-                onClick={prev}
-                disabled={active === 1}
-              >
-                <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" />
-                <span className="hidden sm:inline">Previous</span>
-              </Button>
-              <div className="flex items-center gap-1 sm:gap-2">
-                {renderPageButtons()}
-                {/* Mobile page indicator */}
-                <span className="md:hidden text-sm">
-                  Page {active} of {totalPages}
-                </span>
-              </div>
-              <Button
-                variant="text"
-                size="sm"
-                className="flex items-center gap-1 sm:gap-2 dark:text-white"
-                onClick={next}
-                disabled={active === totalPages}
-              >
-                <span className="hidden sm:inline">Next</span>
-                <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
-              </Button>
-            </div>
-          </ScrollReveal>
-        )}
       </div>
       <ScrollReveal>
         <Footer />

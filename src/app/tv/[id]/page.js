@@ -12,7 +12,7 @@ import { Alert } from "@material-tailwind/react";
 
 export default function Page({ params }) {
   const MOBILE_BREAKPOINT = 960;
-  const API_KEY = "84ef9a6a385dcf0d998c9d83dd821e47";
+  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
   const TITLE_DELAY = 1500;
 
   const resolvedParams = React.use(params);
@@ -212,6 +212,7 @@ export default function Page({ params }) {
           <div className="flex-container flex-wrap">
             <div className="relative h-[222px] sm:h-[250px] md:h-[450px] lg:h-[819px] m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 overflow-hidden">
               <div className="absolute inset-0 bg-gray-900 rounded-xl overflow-hidden">
+                
                 {tvDetails && (
                   <div className="relative w-full h-full bg-black opacity-40">
                     {/* Backdrop Image */}
@@ -257,116 +258,118 @@ export default function Page({ params }) {
                   </div>
                 )}
               </div>
+             
+                <div className="relative z-20 h-full flex flex-col justify-end lg:py-64 py-6 md:py-32 px-4 md:px-8 max-w-7xl mx-auto">
+               <ScrollReveal>    {tvLogos[tvDetails.id] ? (
+                    <div className="logo-container object-contain">
+                      <img
+                        loading="lazy"
+                        src={tvLogos[tvDetails.id]}
+                        alt={`${tvDetails.title || tvDetails.name} logo`}
+                        className="h-12 lg:max-w-md lg:h-24 w-auto max-w-[150px] md:max-h-24 object-contain mb-2 md:mb-4"
+                        // style={{ filter: "drop-shadow(0 0 10px rgba(255, 255, 255, 0.5))" }}
+                        onError={(e) => {
+                          e.target.style.display = "none";
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    showTitle && (
+                      <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold text-white mb-2 tracking-wide">
+                        {tvDetails.title || tvDetails.name}
+                      </h1>
+                    )
+                  )}</ScrollReveal>
 
-              <div className="relative z-20 h-full flex flex-col justify-end lg:py-64 py-6 md:py-32 px-4 md:px-8 max-w-7xl mx-auto">
-                {tvLogos[tvDetails.id] ? (
-                  <div className="logo-container object-contain">
-                    <img
-                    loading="lazy" 
-                      src={tvLogos[tvDetails.id]}
-                      alt={`${tvDetails.title || tvDetails.name} logo`}
-                      className="h-12 lg:max-w-md lg:h-24 w-auto max-w-[150px] md:max-h-24 object-contain mb-2 md:mb-4"
-                      // style={{ filter: "drop-shadow(0 0 10px rgba(255, 255, 255, 0.5))" }}
-                      onError={(e) => {
-                        e.target.style.display = "none";
-                      }}
-                    />
+                  <div className="flex items-center gap-2 md:gap-4 mb-2 md:mb-4">
+                    {tvDetails.contentRating && (
+                      <span className="px-2 py-1 bg-gray-100/20 text-white text-xs md:text-sm rounded">
+                        {tvDetails.contentRating}
+                      </span>
+                    )}
+
+                    <span className="text-gray-300 ml-1 text-xs md:text-sm flex items-center gap-2">
+                      <Star size={16} color="#f9fafb" />
+                      {tvDetails.voteAverage > 0
+                        ? ` ${tvDetails.voteAverage.toFixed(1)}`
+                        : "Not Rated"}
+                    </span>
+
+                    <span className="text-gray-300 text-xs md:text-sm flex items-center gap-2">
+                      <CalendarDays size={16} color="#f9fafb" />
+                      <span>
+                        {tvDetails.first_air_date?.slice(0, 4)}
+                        {tvDetails.status !== "Ended" && " - Present"}
+                      </span>
+                    </span>
+
+                    <span className="text-gray-300 text-xs md:text-sm px-2 py-1 bg-gray-100/20 rounded">
+                      {formatStatus(tvDetails.status)}
+                    </span>
                   </div>
-                ) : (
-                  showTitle && (
-                    <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold text-white mb-2 tracking-wide">
-                      {tvDetails.title || tvDetails.name}
-                    </h1>
-                  )
-                )}
-                <div className="flex items-center gap-2 md:gap-4 mb-2 md:mb-4">
-                  {tvDetails.contentRating && (
-                    <span className="px-2 py-1 bg-gray-100/20 text-white text-xs md:text-sm rounded">
-                      {tvDetails.contentRating}
-                    </span>
-                  )}
 
-                  <span className="text-gray-300 ml-1 text-xs md:text-sm flex items-center gap-2">
-                    <Star size={16} color="#f9fafb" />
-                    {tvDetails.voteAverage > 0
-                      ? ` ${tvDetails.voteAverage.toFixed(1)}`
-                      : "Not Rated"}
-                  </span>
+                            {/* <div className="text-gray-300 text-xs md:text-sm mb-2">
+                        {tvDetails.numberOfSeasons} Season{tvDetails.numberOfSeasons !== 1 ? 's' : ''} •{' '}
+                        {tvDetails.numberOfEpisodes} Episode{tvDetails.numberOfEpisodes !== 1 ? 's' : ''}
+                      </div> */}
 
-                  <span className="text-gray-300 text-xs md:text-sm flex items-center gap-2">
-                    <CalendarDays size={16} color="#f9fafb" />
-                    <span>
-                      {tvDetails.first_air_date?.slice(0, 4)}
-                      {tvDetails.status !== "Ended" && " - Present"}
-                    </span>
-                  </span>
+                  <p className="text-gray-300 text-[9px] md:text-sm lg:text-base max-w-xl mb-4 md:mb-6">
+                    {isMobile
+                      ? truncateTextByWords(tvDetails.overview, 3, 10)
+                      : truncateTextByWords(tvDetails.overview, 3, 30)}
+                  </p>
 
-                  <span className="text-gray-300 text-xs md:text-sm px-2 py-1 bg-gray-100/20 rounded">
-                    {formatStatus(tvDetails.status)}
-                  </span>
+                  <div className="text-gray-400 text-xs md:text-sm mb-2">
+                    {getGenreNames(tvDetails.genres || [])}
+                  </div>
                 </div>
-
-                {/* <div className="text-gray-300 text-xs md:text-sm mb-2">
-              {tvDetails.numberOfSeasons} Season{tvDetails.numberOfSeasons !== 1 ? 's' : ''} •{' '}
-              {tvDetails.numberOfEpisodes} Episode{tvDetails.numberOfEpisodes !== 1 ? 's' : ''}
-            </div> */}
-
-                <p className="text-gray-300 text-[9px] md:text-sm lg:text-base max-w-xl mb-4 md:mb-6">
-                  {isMobile
-                    ? truncateTextByWords(tvDetails.overview, 3, 10)
-                    : truncateTextByWords(tvDetails.overview, 3, 30)}
-                </p>
-
-                <div className="text-gray-400 text-xs md:text-sm mb-2">
-                  {getGenreNames(tvDetails.genres || [])}
-                </div>
-              </div>
+              
             </div>
           </div>
         </ScrollReveal>
         <ScrollReveal>
           <OverviewTv data={overviewData} />
         </ScrollReveal>
-         <ScrollReveal>
+        <ScrollReveal>
           <Cast cast={cast} />
         </ScrollReveal>
         <ScrollReveal>
-           <div className=" m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 text-sm font-bold  ">
-                    <Alert
-                      variant="filled"
-                      open={open}
-                      icon={<Icon />}
-                      className="mb-5 rounded-2xl w-full h-full  flex items-center"
-                      action={
-                        <Button
-                          variant="text"
-                          color="white"
-                          size="sm"
-                          className="!absolute right-3 "
-                          onClick={() => setOpen(false)}
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2.75"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="lucide lucide-x h-6 w-6"
-                          >
-                            <path d="M18 6 6 18" />
-                            <path d="m6 6 12 12" />
-                          </svg>
-                        </Button>
-                      }
-                    >
-                      For a better experience, use an ad blocker (e.g., AdGuard, uBlock
-                      Origin).
-                    </Alert>
-                  </div>
+          <div className=" m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 text-sm font-bold  ">
+            <Alert
+              variant="filled"
+              open={open}
+              icon={<Icon />}
+              className="mb-5 rounded-2xl w-full h-full  flex items-center"
+              action={
+                <Button
+                  variant="text"
+                  color="white"
+                  size="sm"
+                  className="!absolute right-3 "
+                  onClick={() => setOpen(false)}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.75"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-x h-6 w-6"
+                  >
+                    <path d="M18 6 6 18" />
+                    <path d="m6 6 12 12" />
+                  </svg>
+                </Button>
+              }
+            >
+              For a better experience, use an ad blocker (e.g., AdGuard, uBlock
+              Origin).
+            </Alert>
+          </div>
           <div className="h-[200px] md:h-[330px] lg:h-[819px] m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 mb-10">
             <iframe
               src={`https://vidsrc.xyz/embed/tv/${tvDetails.id}`}
@@ -377,7 +380,7 @@ export default function Page({ params }) {
             />
           </div>
         </ScrollReveal>
-       
+
         <ScrollReveal>
           <Footer />
         </ScrollReveal>

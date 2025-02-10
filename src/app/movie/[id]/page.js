@@ -12,7 +12,7 @@ import { Alert } from "@material-tailwind/react";
 
 export default function MovieHero({ params }) {
   const MOBILE_BREAKPOINT = 960;
-  const API_KEY = "84ef9a6a385dcf0d998c9d83dd821e47";
+  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
   const TITLE_DELAY = 1500;
 
   const resolvedParams = React.use(params);
@@ -231,27 +231,29 @@ export default function MovieHero({ params }) {
             </div>
 
             <div className="relative z-20 h-full flex flex-col justify-end lg:py-64 py-4 md:py-32 px-4 md:px-8 max-w-7xl mx-auto">
-              {movieLogos[movieDetails.id] ? (
-                <div className="logo-container object-contain">
-                  <img
-                    loading="lazy"
-                    src={movieLogos[movieDetails.id]}
-                    alt={`${movieDetails.title || movieDetails.name} logo`}
-                    className="h-12 lg:max-w-md lg:h-24 w-auto max-w-[150px] md:max-h-24 object-contain mb-2 md:mb-4"
-                    // style={{ filter: "drop-shadow(0 0 20px rgba(255, 255, 255, 0.5))" }}
-                    onError={(e) => {
-                      e.target.style.display = "none";
-                    }}
-                  />
-                </div>
-              ) : (
-                showTitle && (
-                  <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold text-white mb-2 tracking-wide">
-                    {movieDetails.title || movieDetails.name}
-                  </h1>
-                )
-              )}
-
+              <ScrollReveal>
+                {" "}
+                {movieLogos[movieDetails.id] ? (
+                  <div className="logo-container object-contain">
+                    <img
+                      loading="lazy"
+                      src={movieLogos[movieDetails.id]}
+                      alt={`${movieDetails.title || movieDetails.name} logo`}
+                      className="h-12 lg:max-w-md lg:h-24 w-auto max-w-[150px] md:max-h-24 object-contain mb-2 md:mb-4"
+                      // style={{ filter: "drop-shadow(0 0 20px rgba(255, 255, 255, 0.5))" }}
+                      onError={(e) => {
+                        e.target.style.display = "none";
+                      }}
+                    />
+                  </div>
+                ) : (
+                  showTitle && (
+                    <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold text-white mb-2 tracking-wide">
+                      {movieDetails.title || movieDetails.name}
+                    </h1>
+                  )
+                )}
+              </ScrollReveal>
               <div className="flex items-center gap-2 md:gap-4 mb-2 md:mb-4">
                 <span className="px-2 py-1 bg-gray-100/20 text-white text-xs md:text-sm rounded">
                   {movieDetails.contentRating}
@@ -313,7 +315,7 @@ export default function MovieHero({ params }) {
                   <span>Info</span>
                 </Button>
               </Link>
-            </div> */}
+             </div> */}
             </div>
           </div>
         </div>
