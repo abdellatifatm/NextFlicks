@@ -109,7 +109,6 @@ export default function Header() {
           </MenuItem>
         </MenuList>
       </Menu>
-
       <Menu>
         <MenuHandler>
           <Typography
@@ -149,9 +148,7 @@ export default function Header() {
           </MenuItem>
         </MenuList>
       </Menu>
-
       {/* Additional nav items */}
-
       <Typography
         as="li"
         variant="small"
@@ -176,73 +173,32 @@ export default function Header() {
         <Link href="#trending" className="flex items-center">
           Trending
         </Link>
-      </Typography> <Link href="/search" className="flex items-center">
-      <Typography
-            as="li"
-            variant="small"
-            color="blue-gray"
-            className="flex items-center gap-x-2 p-1 font-medium cursor-pointer dark:text-gray-200 "
+      </Typography>{" "}
+      <Link href="/search" className="flex items-center">
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className="flex items-center gap-x-2 p-1 font-medium cursor-pointer dark:text-gray-200 "
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="lucide lucide-star"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-star"
-            >
-              <circle cx="11" cy="11" r="8" />
-              <path d="m21 21-4.3-4.3" />
-            </svg>
-
-           
-              Search
-           
-          </Typography> </Link>
-
-      {/* <Menu>
-        <MenuHandler>
-          <Typography
-            as="li"
-            variant="small"
-            color="blue-gray"
-            className="flex items-center gap-x-2 p-1 font-medium cursor-pointer dark:text-gray-200 "
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-star"
-            >
-              <circle cx="11" cy="11" r="8" />
-              <path d="m21 21-4.3-4.3" />
-            </svg>
-
-            <Link href="/search" className="flex items-center">
-              Search
-            </Link>
-          </Typography>
-        </MenuHandler>
-        <MenuList className="p-2 text-blue-gray-900 dark:text-gray-200 dark:bg-gray-900/30 bg-white/30 backdrop-blur-xl border-none rounded-lg shadow-lg">
-          <MenuItem>
-            <Link href="/top-rated-movies">Movies</Link>
-          </MenuItem>
-
-          <MenuItem>
-            <Link href="/top-rated-TV-Shows">Tv Shows</Link>
-          </MenuItem>
-        </MenuList>
-      </Menu> */}
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.3-4.3" />
+          </svg>
+          Search
+        </Typography>{" "}
+      </Link>
     </ul>
   );
 

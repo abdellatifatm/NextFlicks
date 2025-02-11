@@ -1,30 +1,117 @@
 "use client";
 
-export default function page() {
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Link from "next/link";
+// import { Footer } from "../components/Footer";
+import ScrollReveal from "../components/ScrollReveal";
+import { motion } from "framer-motion";
+
+export default function Page() {
+  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+  const [movies, setMovies] = useState([]);
+  const [query, setQuery] = useState("");
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const type = "multi"; // Default to searching all types
+
+  useEffect(() => {
+    if (!query) return;
+
+    const fetchMovies = async () => {
+      try {
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/search/${type}?api_key=${API_KEY}&language=en-US&page=${page}&query=${query}&watch_region=US`
+        );
+
+        setMovies((prevMovies) => {
+          const newMovies = response.data.results.filter(
+            (newMovie) => !prevMovies.some((movie) => movie.id === newMovie.id)
+          );
+          return [...prevMovies, ...newMovies];
+        });
+        setHasMore(response.data.results.length > 0);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchMovies();
+  }, [query, page]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop >=
+        document.documentElement.offsetHeight - 100
+      ) {
+        if (hasMore) setPage((prevPage) => prevPage + 1);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [hasMore]);
+
   return (
-    <>
+    <div className="flex flex-col">
+      <ScrollReveal>
+        <div className="flex-grow">
+          <div className="flex rounded-md border-2 dark:border-gray-800 border-gray-900 overflow-hidden max-w-md mx-auto font-[sans-serif] mt-24">
+            <input
+              type="text"
+              placeholder="Search Movies, TV Shows, People..."
+              className="w-full outline-none dark:bg-[#171717] bg-white dark:text-gray-200 text-gray-900 text-sm px-4 py-3 placeholder-gray-900 dark:placeholder-gray-200"
+              value={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setMovies([]);
+                setPage(1);
+              }}
+            />
+          </div>
 
-        <div className="flex rounded-md border-2 dark:border-gray-800 border-gray-900 overflow-hidden max-w-md mx-auto font-[sans-serif] mt-24">
-          <input
-            type="email"
-            placeholder="Search Something..."
-            className="w-full outline-none dark:bg-[#171717] bg-white dark:text-gray-200 text-gray-900 text-sm px-4 py-3"
-          />
-          <button
-            type="button"
-            className="flex items-center justify-center dark:bg-gray-800 bg-gray-900 px-5"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 192.904 192.904"
-              width="16px"
-              className="fill-white "
-            >
-              <path d="m190.707 180.101-47.078-47.077c11.702-14.072 18.752-32.142 18.752-51.831C162.381 36.423 125.959 0 81.191 0 36.422 0 0 36.423 0 81.193c0 44.767 36.422 81.187 81.191 81.187 19.688 0 37.759-7.049 51.831-18.751l47.079 47.078a7.474 7.474 0 0 0 5.303 2.197 7.498 7.498 0 0 0 5.303-12.803zM15 81.193C15 44.694 44.693 15 81.191 15c36.497 0 66.189 29.694 66.189 66.193 0 36.496-29.692 66.187-66.189 66.187C44.693 147.38 15 117.689 15 81.193z"></path>
-            </svg>
-          </button>
+          {movies.length > 0 && (
+            <div className="flex-grow">
+              <div className="rounded-lg mx-4 sm:mx-8 lg:mx-16 pt-20 text-blue-gray-900 dark:text-gray-200">
+                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-4">
+                  {movies.map((movie) => (
+                    <motion.div
+                      key={movie.id}
+                      className="movie-item relative group"
+                      initial={{ opacity: 0, y: 50 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, ease: "easeOut" }}
+                    >
+                      <Link
+                       href={`/${movie.media_type}/${movie.id}-${(movie.title || movie.name)
+                        .toLowerCase()
+                        .replace(/\s+/g, "-")}`}
+                      >
+                        <div className="relative rounded-lg overflow-hidden">
+                          <img
+                            loading="lazy"
+                            src={
+                              movie.poster_path
+                                ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+                                : movie.profile_path
+                                ? `https://image.tmdb.org/t/p/w500/${movie.profile_path}`
+                                : "/avatar.png"
+                            }
+                            alt={movie.title || movie.name || "Movie Poster"}
+                            className="w-full aspect-[2/3] object-cover drop-shadow-lg transition-transform transform hover:drop-shadow-2xl hover:opacity-90 group-hover:scale-110"
+                          />
+                        </div>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
-
-    </>
+      </ScrollReveal>
+      {/* <Footer /> */}
+    </div>
   );
 }
