@@ -61,7 +61,7 @@ export default function Page() {
             <input
               type="text"
               placeholder="Search Movies, TV Shows, People..."
-              className="w-full outline-none dark:bg-[#171717] bg-white dark:text-gray-200 text-gray-900 text-sm px-4 py-3 placeholder-gray-900 dark:placeholder-gray-200"
+              className="w-full outline-none dark:bg-[#171717] bg-white dark:text-gray-200 text-gray-900 text-base px-4 py-3 placeholder-gray-900 dark:placeholder-gray-200"
               value={query}
               onChange={(e) => {
                 setQuery(e.target.value);
