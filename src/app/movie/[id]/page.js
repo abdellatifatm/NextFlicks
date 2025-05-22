@@ -326,7 +326,7 @@ export default function MovieHero({ params }) {
       <ScrollReveal>
         <Cast cast={cast} />
       </ScrollReveal>
-      <ScrollReveal>
+      {/* <ScrollReveal>
         <div className=" m-2 md:m-5 mt-10 lg:mx-8 px-2 md:px-4 text-sm font-bold  ">
           <Alert
             variant="filled"
@@ -373,7 +373,7 @@ export default function MovieHero({ params }) {
             title="Movie Video"
           />
         </div>
-      </ScrollReveal>
+      </ScrollReveal> */}
 
       <ScrollReveal>
         <Footer />
